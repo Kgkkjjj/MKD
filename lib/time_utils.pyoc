@@ -1,3 +1,5 @@
+"""Small convenience wrappers around the ``time`` module."""
+
 import time
 
 

@@ -1,3 +1,5 @@
+"""Tiny networking helpers."""
+
 import socket
 import subprocess
 

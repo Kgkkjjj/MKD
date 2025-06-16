@@ -1,3 +1,5 @@
+"""Small wrappers around the ``random`` module."""
+
 import random
 
 

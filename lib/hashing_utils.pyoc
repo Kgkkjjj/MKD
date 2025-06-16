@@ -1,3 +1,5 @@
+"""Hashing helper functions."""
+
 import hashlib
 
 

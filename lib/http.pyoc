@@ -1,3 +1,5 @@
+"""Very small HTTP helper wrapping urllib."""
+
 import urllib.request
 
 

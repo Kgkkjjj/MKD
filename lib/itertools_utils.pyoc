@@ -1,3 +1,5 @@
+"""Extra helpers built on top of itertools."""
+
 from itertools import tee
 
 

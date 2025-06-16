@@ -1,3 +1,5 @@
+"""Wrapper helpers for common regex functions."""
+
 import re
 
 

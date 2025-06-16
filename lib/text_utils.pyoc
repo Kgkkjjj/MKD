@@ -1,3 +1,6 @@
+"""Utility helpers for manipulating blocks of text."""
+
+
 def indent(text: str, spaces: int) -> str:
     prefix = ' ' * spaces
     return '\n'.join(prefix + line for line in text.splitlines())

@@ -1,3 +1,5 @@
+"""Run shell commands and capture their output."""
+
 import subprocess
 
 

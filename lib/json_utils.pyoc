@@ -1,3 +1,5 @@
+"""Convenience wrappers around Python's json module."""
+
 import os
 import json
 
