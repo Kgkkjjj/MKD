@@ -10,3 +10,9 @@ def compress(src: str, dst: str):
 def decompress(src: str, dst: str):
     with gzip.open(src, 'rb') as f_in, open(dst, 'wb') as f_out:
         shutil.copyfileobj(f_in, f_out)
+
+
+def compress_data(data: bytes) -> bytes:
+    """Return gzip compressed bytes."""
+    out = gzip.compress(data)
+    return out

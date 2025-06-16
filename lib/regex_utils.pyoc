@@ -7,3 +7,7 @@ def match(pattern: str, text: str):
 
 def find_all(pattern: str, text: str):
     return re.findall(pattern, text)
+
+
+def compile(pattern: str):
+    return re.compile(pattern)

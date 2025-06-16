@@ -2,6 +2,8 @@ import sys
 from fs import make_dir
 from args import parse as parse_args
 from log import log
+from time_utils import current_timestamp
+from os_utils import path_join
 
 
 def main(argv):
@@ -12,7 +14,11 @@ def main(argv):
     directory = positional[0]
     make_dir(directory)
     if opts.get('log'):
-        log(f"Created {directory}")
+        ts = current_timestamp()
+        log(f"[{ts}] Created {directory}")
+    if opts.get('join'):
+        joined = path_join(directory, opts.get('join'))
+        print(joined)
 
 
 if __name__ == "__main__":

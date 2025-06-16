@@ -1,0 +1,13 @@
+"""Simple debugging utilities."""
+
+import pprint
+
+
+def dump(obj):
+    pprint.pprint(obj)
+
+
+def banner(msg: str):
+    print('=' * 40)
+    print(msg)
+    print('=' * 40)

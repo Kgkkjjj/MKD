@@ -1,3 +1,21 @@
 def indent(text: str, spaces: int) -> str:
     prefix = ' ' * spaces
     return '\n'.join(prefix + line for line in text.splitlines())
+
+
+def wrap_text(text: str, width: int) -> str:
+    words = text.split()
+    lines = []
+    current = []
+    count = 0
+    for word in words:
+        if count + len(word) + (1 if current else 0) > width:
+            lines.append(' '.join(current))
+            current = [word]
+            count = len(word)
+        else:
+            current.append(word)
+            count += len(word) + (1 if current[:-1] else 0)
+    if current:
+        lines.append(' '.join(current))
+    return '\n'.join(lines)

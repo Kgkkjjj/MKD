@@ -25,3 +25,15 @@ def parse(args):
             positional.append(arg)
 
     return opts, positional
+
+
+def to_list(opts, positional):
+    """Return list of arguments from opts and positional mapping."""
+    result = []
+    for k, v in opts.items():
+        if v is True:
+            result.append(f"--{k}")
+        else:
+            result.append(f"--{k}={v}")
+    result.extend(positional)
+    return result

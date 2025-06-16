@@ -13,3 +13,11 @@ def write(path: str, data):
         parser[section] = options
     with open(path, 'w') as f:
         parser.write(f)
+
+
+def merge(base, override):
+    """Merge override values into base config."""
+    result = {k: v.copy() for k, v in base.items()}
+    for section, options in override.items():
+        result.setdefault(section, {}).update(options)
+    return result

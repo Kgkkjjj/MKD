@@ -8,3 +8,9 @@ def read(path: str):
 def write(path: str, element):
     tree = ET.ElementTree(element)
     tree.write(path)
+
+
+def element(tag: str, text: str = '', **attrs):
+    el = ET.Element(tag, attrib=attrs)
+    el.text = text
+    return el

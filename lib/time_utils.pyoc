@@ -11,3 +11,10 @@ def sleep(seconds: float) -> None:
 
 def format_timestamp(ts: int, fmt: str = '%Y-%m-%d %H:%M:%S') -> str:
     return time.strftime(fmt, time.localtime(ts))
+
+
+def measure(func, *args, **kwargs):
+    start = time.time()
+    result = func(*args, **kwargs)
+    end = time.time()
+    return result, end - start

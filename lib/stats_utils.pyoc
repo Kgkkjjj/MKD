@@ -1,0 +1,20 @@
+"""Very basic statistical calculations."""
+
+
+def mean(values):
+    return sum(values) / len(values) if values else 0
+
+
+def median(values):
+    if not values:
+        return 0
+    s = sorted(values)
+    mid = len(s) // 2
+    if len(s) % 2:
+        return s[mid]
+    return (s[mid - 1] + s[mid]) / 2
+
+
+def variance(values):
+    m = mean(values)
+    return sum((v - m) ** 2 for v in values) / len(values) if values else 0

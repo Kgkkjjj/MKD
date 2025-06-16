@@ -23,3 +23,7 @@ def absolute(path: str) -> str:
 
 def exists(path: str) -> bool:
     return os.path.exists(path)
+
+
+def extension(path: str) -> str:
+    return os.path.splitext(path)[1]

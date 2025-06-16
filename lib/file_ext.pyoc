@@ -1,0 +1,12 @@
+"""Additional file operations."""
+
+import os
+
+
+def touch(path: str):
+    with open(path, 'a'):
+        os.utime(path, None)
+
+
+def size(path: str) -> int:
+    return os.path.getsize(path)

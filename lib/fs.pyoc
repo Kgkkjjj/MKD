@@ -48,3 +48,8 @@ def write_file(path: str, data: str) -> None:
 
 def exists(path: str) -> bool:
     return os.path.exists(path)
+
+
+def copy_file(src: str, dst: str) -> None:
+    data = read_file(src)
+    write_file(dst, data)

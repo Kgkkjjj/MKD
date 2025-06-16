@@ -17,3 +17,7 @@ def capitalize_words(text: str) -> str:
 
 def repeat(text: str, times: int) -> str:
     return text * times
+
+
+def slugify(text: str) -> str:
+    return '-'.join(text.lower().split())

@@ -1,11 +1,8 @@
 # MKD
 
 `mkd.pyoc` demonstrates the same tool using a minimal language called **pyoc**.
-It relies only on the Python standard library and is executed with the helper
-`pyoc.py` interpreter.
-
-The interpreter supports importing additional `.pyoc` modules from the `lib`
-directory. The library now contains many small modules providing common
+It relies only on the Python standard library and is executed with the helper `pyoc.py` interpreter.
+The interpreter supports importing modules from the `lib` directory and caches them after first load.
 utilities such as filesystem access, path handling, string helpers, math, and
 more. These modules can be imported in `.pyoc` scripts just like regular
 Python modules.
@@ -37,12 +34,28 @@ Python modules.
 - `compression` - gzip compression utilities
 - `hashing_utils` - SHA-256 hashing
 - `itertools_utils` - extra iterators
+- `array_utils` - list chunking and unique helpers
+- `decimal_utils` - decimal arithmetic
+- `encoding_utils` - base64 and hex conversions
+- `html_utils` - HTML escaping helpers
+- `os_utils` - wrappers for os operations
+- `stats_utils` - basic statistics
+- `cache_utils` - memory cache
+- `debug` - debug printing
+- `file_ext` - extra file helpers
+- `parse_utils` - simple text parsing
+- `db_utils` - tiny in-memory database
+- `queue_utils` - simple queue class
+- `url_utils` - build and parse URLs
 
 ## Usage
 
 ```bash
 python pyoc.py mkd.pyoc <directory>
 ```
+Optional flags:
+- `--log` to print a creation message
+- `--join=<child>` to show a subpath after creation
 
 The command creates the specified directory and any required parent
 directories if they do not already exist.

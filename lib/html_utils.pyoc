@@ -1,0 +1,18 @@
+"""Very small helpers to work with HTML snippets."""
+
+import html
+
+
+def escape(text: str) -> str:
+    return html.escape(text)
+
+
+def unescape(text: str) -> str:
+    return html.unescape(text)
+
+
+def tag(name: str, content: str, **attrs) -> str:
+    attr_str = ' '.join(f'{k}="{v}"' for k, v in attrs.items())
+    if attr_str:
+        return f'<{name} {attr_str}>{content}</{name}>'
+    return f'<{name}>{content}</{name}>'

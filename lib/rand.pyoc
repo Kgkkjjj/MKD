@@ -12,3 +12,11 @@ def choice(seq):
 def shuffle(seq):
     random.shuffle(seq)
     return seq
+
+
+def seed(value=None):
+    random.seed(value)
+
+
+def randfloat(a: float, b: float) -> float:
+    return random.uniform(a, b)

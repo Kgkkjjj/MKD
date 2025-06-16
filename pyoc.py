@@ -4,8 +4,9 @@ import builtins
 import types
 
 LIB_DIR = os.path.join(os.path.dirname(__file__), 'lib')
-
 orig_import = builtins.__import__
+# simple cache of loaded modules to avoid rereading files
+_module_cache = {}
 
 
 def pyoc_import(name, globals=None, locals=None, fromlist=(), level=0):
@@ -16,12 +17,15 @@ def pyoc_import(name, globals=None, locals=None, fromlist=(), level=0):
         module_path = os.path.join(LIB_DIR, f"{name}.pyoc")
         if not os.path.exists(module_path):
             raise
+        if name in _module_cache:
+            return _module_cache[name]
         with open(module_path, 'r') as f:
             code = f.read()
         module = types.ModuleType(name)
         module.__file__ = module_path
         sys.modules[name] = module
         exec(compile(code, module_path, 'exec'), module.__dict__)
+        _module_cache[name] = module
         return module
 
 
@@ -32,6 +36,17 @@ def run_pyoc(path, args):
     """Run a .pyoc file as if it were a Python script."""
     with open(path, 'r') as f:
         code = f.read()
+    sys.argv = [path] + args
+    globals_dict = {
+        "__name__": "__main__",
+        "__file__": path,
+    }
+    exec(compile(code, path, 'exec'), globals_dict)
+
+
+def run_string(code: str, args):
+    """Execute pyoc source code from a string."""
+    path = '<string>'
     sys.argv = [path] + args
     globals_dict = {
         "__name__": "__main__",

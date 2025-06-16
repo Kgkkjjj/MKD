@@ -10,3 +10,8 @@ def error(message: str) -> None:
     ts = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
     import sys
     print(f'[ERROR {ts}] {message}', file=sys.stderr)
+
+
+def warn(message: str) -> None:
+    ts = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+    print(f'[WARN {ts}] {message}')

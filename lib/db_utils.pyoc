@@ -1,0 +1,19 @@
+"""Very small in-memory key/value database."""
+
+_db = {}
+
+
+def insert(key, value):
+    _db[key] = value
+
+
+def get(key, default=None):
+    return _db.get(key, default)
+
+
+def remove(key):
+    _db.pop(key, None)
+
+
+def all_keys():
+    return list(_db.keys())

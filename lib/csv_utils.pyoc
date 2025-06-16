@@ -11,3 +11,8 @@ def write(path: str, rows):
         writer = csv.writer(f)
         for row in rows:
             writer.writerow(row)
+
+
+def append(path: str, row):
+    with open(path, 'a', newline='') as f:
+        csv.writer(f).writerow(row)

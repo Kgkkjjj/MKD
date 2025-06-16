@@ -11,3 +11,8 @@ def run_checked(cmd: str) -> str:
     if result.returncode != 0:
         raise RuntimeError(result.stderr.strip())
     return result.stdout
+
+
+def run_with_code(cmd: str):
+    result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+    return result.returncode, result.stdout
