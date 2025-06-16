@@ -1,0 +1,11 @@
+import json
+
+
+def read(path: str):
+    with open(path, 'r') as f:
+        return json.load(f)
+
+
+def write(path: str, data) -> None:
+    with open(path, 'w') as f:
+        json.dump(data, f)

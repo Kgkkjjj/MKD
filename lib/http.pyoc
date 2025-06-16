@@ -1,0 +1,6 @@
+import urllib.request
+
+
+def get(url: str) -> str:
+    with urllib.request.urlopen(url) as resp:
+        return resp.read().decode('utf-8')

@@ -1,0 +1,7 @@
+def parse(args):
+    opts = {}
+    for arg in args:
+        if '=' in arg:
+            k, v = arg.split('=', 1)
+            opts[k] = v
+    return opts
