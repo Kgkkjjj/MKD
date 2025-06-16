@@ -1,12 +1,13 @@
 # MKD
 
-`mkd.py` is a simple implementation of a directory creation tool similar to
-`mkdir`. It is written in pure Python and requires no third-party libraries.
+`mkd.pyoc` demonstrates the same tool using a minimal language called **pyoc**.
+It relies only on the Python standard library and is executed with the helper
+`pyoc.py` interpreter.
 
 ## Usage
 
 ```
-python mkd.py <directory>
+python pyoc.py mkd.pyoc <directory>
 ```
 
 The command creates the specified directory and any required parent
