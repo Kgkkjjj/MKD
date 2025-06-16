@@ -1,4 +1,31 @@
 import sys
+import os
+import builtins
+import types
+
+LIB_DIR = os.path.join(os.path.dirname(__file__), 'lib')
+
+orig_import = builtins.__import__
+
+
+def pyoc_import(name, globals=None, locals=None, fromlist=(), level=0):
+    """Import handler that loads .pyoc modules from the lib directory."""
+    try:
+        return orig_import(name, globals, locals, fromlist, level)
+    except ModuleNotFoundError:
+        module_path = os.path.join(LIB_DIR, f"{name}.pyoc")
+        if not os.path.exists(module_path):
+            raise
+        with open(module_path, 'r') as f:
+            code = f.read()
+        module = types.ModuleType(name)
+        module.__file__ = module_path
+        sys.modules[name] = module
+        exec(compile(code, module_path, 'exec'), module.__dict__)
+        return module
+
+
+builtins.__import__ = pyoc_import
 
 
 def run_pyoc(path, args):

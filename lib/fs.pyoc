@@ -1,0 +1,33 @@
+import os
+
+
+def make_dir(path: str) -> None:
+    """Create a directory recursively if it does not exist."""
+    parts = path.strip().split(os.sep)
+    current = ""
+    for part in parts:
+        if not part:
+            continue
+        current = os.path.join(current, part)
+        if not os.path.exists(current):
+            os.mkdir(current)
+
+
+def list_dir(path: str):
+    """Return a list of entries in a directory or empty list if missing."""
+    if not os.path.exists(path):
+        return []
+    return [entry for entry in os.listdir(path)]
+
+
+def remove_dir(path: str) -> None:
+    """Remove a directory and all its contents recursively."""
+    if not os.path.exists(path):
+        return
+    for entry in os.listdir(path):
+        full = os.path.join(path, entry)
+        if os.path.isdir(full):
+            remove_dir(full)
+        else:
+            os.remove(full)
+    os.rmdir(path)
