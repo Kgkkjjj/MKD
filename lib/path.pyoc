@@ -7,3 +7,19 @@ def join(*parts):
 
 def split(path):
     return os.path.split(path)
+
+
+def basename(path: str) -> str:
+    return os.path.basename(path)
+
+
+def dirname(path: str) -> str:
+    return os.path.dirname(path)
+
+
+def absolute(path: str) -> str:
+    return os.path.abspath(path)
+
+
+def exists(path: str) -> bool:
+    return os.path.exists(path)

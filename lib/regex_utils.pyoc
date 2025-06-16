@@ -1,0 +1,9 @@
+import re
+
+
+def match(pattern: str, text: str):
+    return re.match(pattern, text)
+
+
+def find_all(pattern: str, text: str):
+    return re.findall(pattern, text)

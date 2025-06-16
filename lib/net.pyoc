@@ -1,0 +1,11 @@
+import socket
+import subprocess
+
+
+def get_hostname():
+    return socket.gethostname()
+
+
+def ping(host: str) -> bool:
+    result = subprocess.run(['ping', '-c', '1', host], capture_output=True)
+    return result.returncode == 0

@@ -1,0 +1,13 @@
+import csv
+
+
+def read(path: str):
+    with open(path, newline='') as f:
+        return [row for row in csv.reader(f)]
+
+
+def write(path: str, rows):
+    with open(path, 'w', newline='') as f:
+        writer = csv.writer(f)
+        for row in rows:
+            writer.writerow(row)

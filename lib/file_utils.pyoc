@@ -1,0 +1,17 @@
+import os
+import shutil
+
+
+def copy(src: str, dst: str):
+    shutil.copy2(src, dst)
+
+
+def move(src: str, dst: str):
+    shutil.move(src, dst)
+
+
+def delete(path: str):
+    if os.path.isdir(path):
+        shutil.rmtree(path)
+    elif os.path.exists(path):
+        os.remove(path)

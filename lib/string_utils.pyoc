@@ -8,3 +8,12 @@ def to_lower(text: str) -> str:
 
 def reverse(text: str) -> str:
     return text[::-1]
+
+
+def capitalize_words(text: str) -> str:
+    """Capitalize the first letter of each word in the string."""
+    return " ".join(word.capitalize() for word in text.split())
+
+
+def repeat(text: str, times: int) -> str:
+    return text * times

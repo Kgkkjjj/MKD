@@ -45,8 +45,13 @@ def main():
         print(f"Usage: {sys.argv[0]} <script.pyoc> [args...]")
         return
     script = sys.argv[1]
-    if not script.endswith('.pyoc'):
-        print("Error: script must have a .pyoc extension")
+    if not os.path.exists(script):
+        if not script.endswith('.pyoc'):
+            candidate = script + '.pyoc'
+            if os.path.exists(candidate):
+                script = candidate
+    if not script.endswith('.pyoc') or not os.path.exists(script):
+        print(f"Error: script {script} not found")
         return
     run_pyoc(script, sys.argv[2:])
 

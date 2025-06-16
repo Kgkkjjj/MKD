@@ -1,0 +1,15 @@
+import configparser
+
+
+def read(path: str):
+    parser = configparser.ConfigParser()
+    parser.read(path)
+    return {section: dict(parser.items(section)) for section in parser.sections()}
+
+
+def write(path: str, data):
+    parser = configparser.ConfigParser()
+    for section, options in data.items():
+        parser[section] = options
+    with open(path, 'w') as f:
+        parser.write(f)

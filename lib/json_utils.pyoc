@@ -9,3 +9,13 @@ def read(path: str):
 def write(path: str, data) -> None:
     with open(path, 'w') as f:
         json.dump(data, f)
+
+
+def loads(text: str):
+    return json.loads(text)
+
+
+def dumps(obj, pretty: bool = False) -> str:
+    if pretty:
+        return json.dumps(obj, indent=2, sort_keys=True)
+    return json.dumps(obj)

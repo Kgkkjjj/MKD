@@ -1,7 +1,27 @@
 def parse(args):
+    """Parse a list of command line arguments.
+
+    Returns a tuple ``(options, positional)``. ``options`` is a dictionary
+    populated from ``--key=value`` pairs or ``--flag`` boolean options. Any
+    ``key=value`` without a leading ``--`` is also accepted for convenience.
+    ``positional`` contains all remaining arguments.
+    """
+
     opts = {}
+    positional = []
+
     for arg in args:
-        if '=' in arg:
-            k, v = arg.split('=', 1)
+        if arg.startswith("--"):
+            key = arg[2:]
+            if "=" in key:
+                key, value = key.split("=", 1)
+                opts[key] = value
+            else:
+                opts[key] = True
+        elif "=" in arg:
+            k, v = arg.split("=", 1)
             opts[k] = v
-    return opts
+        else:
+            positional.append(arg)
+
+    return opts, positional

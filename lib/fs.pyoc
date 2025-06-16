@@ -31,3 +31,20 @@ def remove_dir(path: str) -> None:
         else:
             os.remove(full)
     os.rmdir(path)
+
+
+def read_file(path: str) -> str:
+    with open(path, 'r') as f:
+        return f.read()
+
+
+def write_file(path: str, data: str) -> None:
+    parent = os.path.dirname(path)
+    if parent and not os.path.exists(parent):
+        make_dir(parent)
+    with open(path, 'w') as f:
+        f.write(data)
+
+
+def exists(path: str) -> bool:
+    return os.path.exists(path)
