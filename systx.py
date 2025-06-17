@@ -137,6 +137,13 @@ def run_line(tokens, env_stack, labels, funcs, call_stack, data_stack, pc_after,
         time.sleep(secs)
     elif cmd == 'copy' and len(tokens) == 3:
         env[tokens[2]] = eval_token(tokens[1], env_stack)
+    elif cmd == 'arg' and len(tokens) == 3:
+        idx = int(eval_token(tokens[1], env_stack))
+        args = env_stack[0].get('args', [])
+        env[tokens[2]] = args[idx] if idx < len(args) else ''
+    elif cmd == 'argc' and len(tokens) == 2:
+        args = env_stack[0].get('args', [])
+        env[tokens[1]] = len(args)
     elif cmd == 'push' and len(tokens) == 2:
         data_stack.append(eval_token(tokens[1], env_stack))
     elif cmd == 'pop' and len(tokens) == 2:
@@ -151,6 +158,20 @@ def run_line(tokens, env_stack, labels, funcs, call_stack, data_stack, pc_after,
         path = str(eval_token(tokens[1], env_stack))
         mode = str(eval_token(tokens[2], env_stack))
         env[tokens[3]] = open(path, mode)
+    elif cmd == 'readfile' and len(tokens) == 3:
+        path = str(eval_token(tokens[1], env_stack))
+        with open(path, 'r', encoding='utf-8') as fh:
+            env[tokens[2]] = fh.read()
+    elif cmd == 'writefile' and len(tokens) == 3:
+        path = str(eval_token(tokens[1], env_stack))
+        data = str(eval_token(tokens[2], env_stack))
+        with open(path, 'w', encoding='utf-8') as fh:
+            fh.write(data)
+    elif cmd == 'appendfile' and len(tokens) == 3:
+        path = str(eval_token(tokens[1], env_stack))
+        data = str(eval_token(tokens[2], env_stack))
+        with open(path, 'a', encoding='utf-8') as fh:
+            fh.write(data)
     elif cmd == 'readline' and len(tokens) == 3:
         fh = eval_token(tokens[1], env_stack)
         env[tokens[2]] = fh.readline().rstrip('\n')
@@ -162,6 +183,25 @@ def run_line(tokens, env_stack, labels, funcs, call_stack, data_stack, pc_after,
         fh.close()
     elif cmd == 'read' and len(tokens) == 2:
         env[tokens[1]] = input()
+    elif cmd == 'exists' and len(tokens) == 3:
+        path = str(eval_token(tokens[1], env_stack))
+        env[tokens[2]] = int(os.path.exists(path))
+    elif cmd == 'chdir' and len(tokens) == 2:
+        path = str(eval_token(tokens[1], env_stack))
+        os.chdir(path)
+    elif cmd == 'listdir' and len(tokens) == 3:
+        path = str(eval_token(tokens[1], env_stack))
+        env[tokens[2]] = os.listdir(path) if os.path.exists(path) else []
+    elif cmd == 'envget' and len(tokens) == 3:
+        name = str(eval_token(tokens[1], env_stack))
+        env[tokens[2]] = os.environ.get(name, '')
+    elif cmd == 'system' and len(tokens) >= 2:
+        cmdline = ' '.join(str(eval_token(t, env_stack)) for t in tokens[1:])
+        os.system(cmdline)
+    elif cmd == 'joinpath' and len(tokens) == 4:
+        a = str(eval_token(tokens[1], env_stack))
+        b = str(eval_token(tokens[2], env_stack))
+        env[tokens[3]] = os.path.join(a, b)
     elif cmd == 'print' and len(tokens) >= 2:
         parts = [str(eval_token(t, env_stack)) for t in tokens[1:]]
         print(' '.join(parts))
@@ -231,8 +271,15 @@ def run_systx(path, args):
     lines = []
     loop_stack = []
     for raw in raw_lines:
-        line = raw.strip()
-        if not line or line.startswith('#'):
+        line = raw.rstrip()
+        if ';#' in line:
+            line = line.split(';#', 1)[0]
+        if '#' in line:
+            line = line.split('#', 1)[0]
+        line = line.strip()
+        if line.endswith(';'):
+            line = line[:-1].rstrip()
+        if not line:
             lines.append(None)
             continue
         if line.startswith(':'):

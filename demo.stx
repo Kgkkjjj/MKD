@@ -2,6 +2,13 @@
 rand 10 r
 print "Random number:" r
 
+argc argcount
+print "Arg count:" argcount
+arg 0 self
+print "Script name:" self
+envget HOME home
+print "Home:" home
+
 call factorial 5
 print "Factorial:" result
 
@@ -20,6 +27,9 @@ open "demo.txt" "w" fh
 write fh joined
 write fh "\n"
 close fh
+readfile "demo.txt" contents
+print "File:" contents
+system echo Done
 exit
 
 func factorial n

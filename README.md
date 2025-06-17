@@ -179,6 +179,17 @@ with a command followed by arguments. Available commands are:
 - `append <list> <value>` – append a value to a list
 - `get <list> <index> <dest>` – get a list element
 - `lenlist <list> <dest>` – number of elements in a list
+- `arg <index> <dest>` – get a command line argument
+- `argc <dest>` – number of command line arguments
+- `readfile <path> <dest>` – read an entire file
+- `writefile <path> <value>` – overwrite a file with data
+- `appendfile <path> <value>` – append data to a file
+- `exists <path> <dest>` – check if a path exists
+- `chdir <path>` – change the working directory
+- `listdir <path> <dest>` – list entries in a directory
+- `envget <name> <dest>` – get an environment variable
+- `system <command...>` – execute a shell command
+- `joinpath <a> <b> <dest>` – join two path segments
 
 Run a script with:
 
