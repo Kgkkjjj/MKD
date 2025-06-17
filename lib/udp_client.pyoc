@@ -1,0 +1,9 @@
+"""Minimal UDP client."""
+
+import socket
+
+
+def send(host: str, port: int, data: bytes) -> None:
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.sendto(data, (host, port))
+    s.close()

@@ -1,0 +1,15 @@
+"""Minimal TCP echo server."""
+
+import socket
+
+
+def run(host: str, port: int) -> None:
+    """Run a blocking TCP echo server for a single connection."""
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind((host, port))
+    s.listen(1)
+    conn, _ = s.accept()
+    data = conn.recv(1024)
+    conn.sendall(data)
+    conn.close()
+    s.close()

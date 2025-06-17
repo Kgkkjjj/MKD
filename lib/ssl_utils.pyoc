@@ -1,0 +1,8 @@
+"""SSL context helpers."""
+
+import ssl
+
+
+def create_default_context():
+    """Return the default SSL context."""
+    return ssl.create_default_context()

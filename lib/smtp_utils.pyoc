@@ -1,0 +1,9 @@
+"""Tiny SMTP email sender."""
+
+import smtplib
+
+
+def send_mail(host: str, sender: str, recipient: str, subject: str, body: str) -> None:
+    msg = f"Subject: {subject}\n\n{body}"
+    with smtplib.SMTP(host) as s:
+        s.sendmail(sender, [recipient], msg)

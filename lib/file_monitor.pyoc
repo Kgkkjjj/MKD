@@ -1,0 +1,14 @@
+"""Poll a file for modifications."""
+
+import os
+import time
+
+
+def wait_for_change(path: str, interval: float = 1.0) -> None:
+    """Block until the file's modification time changes."""
+    last = os.path.getmtime(path)
+    while True:
+        time.sleep(interval)
+        current = os.path.getmtime(path)
+        if current != last:
+            return

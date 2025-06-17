@@ -1,0 +1,8 @@
+"""Async I/O utilities using asyncio."""
+
+import asyncio
+
+
+async def read_file(path: str) -> str:
+    loop = asyncio.get_event_loop()
+    return await loop.run_in_executor(None, lambda: open(path).read())

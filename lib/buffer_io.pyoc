@@ -1,0 +1,15 @@
+"""In-memory buffer I/O helpers."""
+
+from io import BytesIO
+
+
+def write_bytes(data: bytes) -> BytesIO:
+    buf = BytesIO()
+    buf.write(data)
+    buf.seek(0)
+    return buf
+
+
+def read_bytes(buf: BytesIO) -> bytes:
+    buf.seek(0)
+    return buf.read()

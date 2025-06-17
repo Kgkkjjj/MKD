@@ -47,6 +47,26 @@ Python modules.
 - `db_utils` - tiny in-memory database
 - `queue_utils` - simple queue class
 - `url_utils` - build and parse URLs
+- `dns_utils` - hostname/IP lookups
+- `port_scan` - check if a TCP port is open
+- `tcp_server` - one-shot TCP echo server
+- `tcp_client` - TCP client utility
+- `udp_server` - one-shot UDP echo server
+- `udp_client` - UDP client helper
+- `ftp_utils` - list directories on an FTP server
+- `smtp_utils` - send an email via SMTP
+- `ssl_utils` - create SSL contexts
+- `socket_utils` - create sockets
+- `ssh_client` - test SSH connectivity
+- `netstat` - query local network info
+- `buffer_io` - in-memory byte streams
+- `binary_io` - convert integers and bytes
+- `stream_utils` - read lines from streams
+- `file_lock` - simple file locking
+- `temp_files` - make temporary files
+- `async_io` - asynchronous file reads
+- `file_monitor` - wait for file changes
+- `serializer` - save and load objects
 
 ## Usage
 

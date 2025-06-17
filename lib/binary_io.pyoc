@@ -1,0 +1,9 @@
+"""Binary conversion utilities."""
+
+
+def int_to_bytes(n: int, length: int, byteorder: str = 'big') -> bytes:
+    return n.to_bytes(length, byteorder)
+
+
+def bytes_to_int(b: bytes, byteorder: str = 'big') -> int:
+    return int.from_bytes(b, byteorder)

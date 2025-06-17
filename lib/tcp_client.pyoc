@@ -1,0 +1,13 @@
+"""Minimal TCP client."""
+
+import socket
+
+
+def send(host: str, port: int, data: bytes) -> bytes:
+    """Send data to host:port and return the response."""
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((host, port))
+    s.sendall(data)
+    resp = s.recv(1024)
+    s.close()
+    return resp

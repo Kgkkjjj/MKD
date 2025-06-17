@@ -1,0 +1,13 @@
+"""Object serialization helpers."""
+
+import pickle
+
+
+def save(obj, path: str) -> None:
+    with open(path, 'wb') as f:
+        pickle.dump(obj, f)
+
+
+def load(path: str):
+    with open(path, 'rb') as f:
+        return pickle.load(f)
