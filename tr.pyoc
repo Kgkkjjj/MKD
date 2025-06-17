@@ -1,0 +1,18 @@
+import sys
+from cli import require_args
+
+USAGE = "Usage: tr.pyoc <from> <to>"
+
+
+def main(argv):
+    if not require_args(argv, 2, USAGE):
+        return
+    frm = argv[1]
+    to = argv[2]
+    trans = str.maketrans(frm, to)
+    for line in sys.stdin:
+        print(line.rstrip('\n').translate(trans))
+
+
+if __name__ == '__main__':
+    main(sys.argv)

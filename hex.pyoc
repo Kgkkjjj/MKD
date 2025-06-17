@@ -1,0 +1,16 @@
+import sys
+from cli import require_args
+
+USAGE = "Usage: hex.pyoc <file>"
+
+
+def main(argv):
+    if not require_args(argv, 1, USAGE):
+        return
+    with open(argv[1], 'rb') as f:
+        data = f.read()
+    print(data.hex())
+
+
+if __name__ == '__main__':
+    main(sys.argv)

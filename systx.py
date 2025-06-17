@@ -59,6 +59,48 @@ def run_line(tokens, env, labels, funcs, call_stack, data_stack, pc_after):
         a = eval_token(tokens[1], env)
         b = eval_token(tokens[2], env)
         env[tokens[3]] = a % b
+    elif cmd == 'abs' and len(tokens) == 3:
+        val = eval_token(tokens[1], env)
+        env[tokens[2]] = abs(int(val))
+    elif cmd == 'pow' and len(tokens) >= 4:
+        a = int(eval_token(tokens[1], env))
+        b = int(eval_token(tokens[2], env))
+        env[tokens[3]] = a ** b
+    elif cmd == 'min' and len(tokens) >= 4:
+        a = int(eval_token(tokens[1], env))
+        b = int(eval_token(tokens[2], env))
+        env[tokens[3]] = a if a < b else b
+    elif cmd == 'max' and len(tokens) >= 4:
+        a = int(eval_token(tokens[1], env))
+        b = int(eval_token(tokens[2], env))
+        env[tokens[3]] = a if a > b else b
+    elif cmd == 'upper' and len(tokens) == 3:
+        env[tokens[2]] = str(eval_token(tokens[1], env)).upper()
+    elif cmd == 'lower' and len(tokens) == 3:
+        env[tokens[2]] = str(eval_token(tokens[1], env)).lower()
+    elif cmd == 'slice' and len(tokens) == 5:
+        s = str(eval_token(tokens[1], env))
+        start = int(eval_token(tokens[2], env))
+        end = int(eval_token(tokens[3], env))
+        env[tokens[4]] = s[start:end]
+    elif cmd == 'split' and len(tokens) == 4:
+        s = str(eval_token(tokens[1], env))
+        sep = str(eval_token(tokens[2], env))
+        env[tokens[3]] = s.split(sep)
+    elif cmd == 'join' and len(tokens) == 4:
+        lst = eval_token(tokens[1], env)
+        sep = str(eval_token(tokens[2], env))
+        env[tokens[3]] = sep.join(str(x) for x in lst)
+    elif cmd == 'append' and len(tokens) == 3:
+        lst = env.setdefault(tokens[1], [])
+        lst.append(eval_token(tokens[2], env))
+    elif cmd == 'get' and len(tokens) == 4:
+        lst = eval_token(tokens[1], env)
+        idx = int(eval_token(tokens[2], env))
+        env[tokens[3]] = lst[idx]
+    elif cmd == 'lenlist' and len(tokens) == 3:
+        lst = eval_token(tokens[1], env)
+        env[tokens[2]] = len(lst)
     elif cmd == 'inc' and len(tokens) == 2:
         var = tokens[1]
         env[var] = env.get(var, 0) + 1

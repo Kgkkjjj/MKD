@@ -1,0 +1,16 @@
+import sys
+from cli import require_args
+
+USAGE = "Usage: nl.pyoc <file>"
+
+
+def main(argv):
+    if not require_args(argv, 1, USAGE):
+        return
+    with open(argv[1]) as f:
+        for idx, line in enumerate(f, 1):
+            print(f"{idx}\t{line.rstrip()}" )
+
+
+if __name__ == '__main__':
+    main(sys.argv)

@@ -99,6 +99,18 @@ These scripts can be executed with `python pyoc.py <tool>.pyoc`:
 - `whoami.pyoc` - show the current user
 - `env.pyoc` - print an environment variable
 - `calc.pyoc` - evaluate a Python expression
+- `rmdir.pyoc` - remove a directory recursively
+- `stat.pyoc` - show file size and mtime
+- `diff.pyoc` - display line differences between files
+- `cut.pyoc` - print a selected field from each line
+- `paste.pyoc` - merge lines from two files
+- `tr.pyoc` - translate characters from stdin
+- `zip.pyoc` - create a zip archive
+- `unzip.pyoc` - extract a zip archive
+- `nl.pyoc` - number lines of a file
+- `hex.pyoc` - hex dump of a file
+- `repeat.pyoc` - print text multiple times
+- `find.pyoc` - search for files by name
 
 Use `python pyoc.py --list` to see all available commands. Every tool accepts
 `--help` to print its usage.
@@ -148,6 +160,18 @@ with a command followed by arguments. Available commands are:
 - `call <name>` – execute a function
 - `return` – return from a function
 - `exit` – stop execution immediately
+- `abs <value> <dest>` – absolute value
+- `pow <a> <b> <dest>` – exponentiation
+- `min <a> <b> <dest>` – smaller of two numbers
+- `max <a> <b> <dest>` – larger of two numbers
+- `upper <value> <dest>` – convert to uppercase
+- `lower <value> <dest>` – convert to lowercase
+- `slice <value> <start> <end> <dest>` – substring
+- `split <value> <sep> <dest>` – split string into a list
+- `join <list> <sep> <dest>` – join list into a string
+- `append <list> <value>` – append a value to a list
+- `get <list> <index> <dest>` – get a list element
+- `lenlist <list> <dest>` – number of elements in a list
 
 Run a script with:
 
@@ -156,4 +180,4 @@ python systx.py demo.systx
 ```
 
 The `demo.systx` script demonstrates looping with labels and conditional jumps.
-It also shows the `rand` and `dec` commands.
+It showcases random numbers, list manipulation and string case conversion.

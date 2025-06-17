@@ -4,6 +4,17 @@ print "Random number:" r
 set n 5
 call factorial
 print "Factorial:" result
+
+set text "hello,world"
+split text "," parts
+get parts 0 first
+upper first first_upper
+append parts "python"
+lenlist parts count
+join parts "-" joined
+print "Joined:" joined
+print "First upper:" first_upper
+print "Count:" count
 exit
 
 func factorial

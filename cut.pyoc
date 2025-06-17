@@ -1,0 +1,23 @@
+import sys
+from cli import require_args
+
+USAGE = "Usage: cut.pyoc <file> <field> [--delim=<d>]"
+
+
+def main(argv):
+    if not require_args(argv, 2, USAGE):
+        return
+    delim = '\t'
+    field = int(argv[2])
+    for arg in argv[3:]:
+        if arg.startswith('--delim='):
+            delim = arg.split('=', 1)[1]
+    with open(argv[1]) as f:
+        for line in f:
+            parts = line.rstrip('\n').split(delim)
+            if field - 1 < len(parts):
+                print(parts[field - 1])
+
+
+if __name__ == '__main__':
+    main(sys.argv)
