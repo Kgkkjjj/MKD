@@ -1,0 +1,14 @@
+import sys
+from file_utils import delete
+
+
+def main(argv):
+    """Remove a file or directory."""
+    if len(argv) < 2:
+        print(f"Usage: {argv[0]} <path>")
+        return
+    delete(argv[1])
+
+
+if __name__ == '__main__':
+    main(sys.argv)

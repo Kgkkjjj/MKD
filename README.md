@@ -68,6 +68,22 @@ Python modules.
 - `file_monitor` - wait for file changes
 - `serializer` - save and load objects
 
+## Command line tools
+
+These scripts can be executed with `python pyoc.py <tool>.pyoc`:
+- `echo.pyoc` - print arguments
+- `cat.pyoc` - output a file's contents
+- `wc.pyoc` - count lines, words and bytes
+- `head.pyoc` - show the first lines of a file
+- `tail.pyoc` - show the last lines of a file
+- `ls.pyoc` - list directory entries
+- `touch.pyoc` - create or update a file
+- `rm.pyoc` - remove a file or directory
+- `cp.pyoc` - copy a file
+- `mv.pyoc` - move or rename a file
+- `mkdir.pyoc` - create directories
+- `grep.pyoc` - search for text in a file
+
 ## Usage
 
 ```bash

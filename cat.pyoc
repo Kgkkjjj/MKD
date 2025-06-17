@@ -1,0 +1,14 @@
+import sys
+from fs import read_file
+
+
+def main(argv):
+    """Print the contents of a file."""
+    if len(argv) < 2:
+        print(f"Usage: {argv[0]} <file>")
+        return
+    print(read_file(argv[1]))
+
+
+if __name__ == '__main__':
+    main(sys.argv)

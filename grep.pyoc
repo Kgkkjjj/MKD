@@ -1,0 +1,18 @@
+import sys
+from fs import read_file
+
+
+def main(argv):
+    """Search a file for a substring and print matching lines."""
+    if len(argv) < 3:
+        print(f"Usage: {argv[0]} <pattern> <file>")
+        return
+    pattern = argv[1]
+    lines = read_file(argv[2]).splitlines()
+    for line in lines:
+        if pattern in line:
+            print(line)
+
+
+if __name__ == '__main__':
+    main(sys.argv)

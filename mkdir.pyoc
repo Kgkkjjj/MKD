@@ -1,0 +1,14 @@
+import sys
+from fs import make_dir
+
+
+def main(argv):
+    """Create directories if they do not exist."""
+    if len(argv) < 2:
+        print(f"Usage: {argv[0]} <directory>")
+        return
+    make_dir(argv[1])
+
+
+if __name__ == '__main__':
+    main(sys.argv)

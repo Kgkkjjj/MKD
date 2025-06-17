@@ -1,0 +1,13 @@
+import sys
+from fs import list_dir
+
+
+def main(argv):
+    """List directory entries."""
+    path = argv[1] if len(argv) > 1 else '.'
+    for entry in list_dir(path):
+        print(entry)
+
+
+if __name__ == '__main__':
+    main(sys.argv)

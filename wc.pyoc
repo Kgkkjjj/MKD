@@ -1,0 +1,17 @@
+import sys
+from fs import read_file
+
+
+def main(argv):
+    """Count lines, words and bytes of a file."""
+    if len(argv) < 2:
+        print(f"Usage: {argv[0]} <file>")
+        return
+    text = read_file(argv[1])
+    lines = text.splitlines()
+    words = text.split()
+    print(f"{len(lines)} {len(words)} {len(text)}")
+
+
+if __name__ == '__main__':
+    main(sys.argv)
