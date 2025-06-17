@@ -133,6 +133,7 @@ directories if they do not already exist.
 with a command followed by arguments. Available commands are:
 
 - `set <var> <value>` – assign a number or string to a variable
+- `setg <var> <value>` – assign a variable in the global scope
 - `add <a> <b> <dest>` – add two numbers and store the result
 - `sub <a> <b> <dest>` – subtract two numbers and store the result
 - `mul <a> <b> <dest>` – multiply two numbers
@@ -156,9 +157,14 @@ with a command followed by arguments. Available commands are:
 - `:label` – mark a jump target
 - `goto <label>` – jump to a label
 - `if <a> <op> <b> goto <label>` – conditional jump using `==`, `!=`, `<`, `>`, `<=`, `>=`
-- `func <name>` ... `end` – define a function
-- `call <name>` – execute a function
+- `func <name> [args...]` ... `end` – define a function
+- `call <name> [values...]` – execute a function with arguments
 - `return` – return from a function
+- `while <a> <op> <b>` ... `endwhile` – loop while a comparison is true
+- `open <path> <mode> <dest>` – open a file handle
+- `readline <handle> <dest>` – read a line from a file
+- `write <handle> <value>` – write to a file
+- `close <handle>` – close an open handle
 - `exit` – stop execution immediately
 - `abs <value> <dest>` – absolute value
 - `pow <a> <b> <dest>` – exponentiation
@@ -179,5 +185,5 @@ Run a script with:
 python systx.py demo.systx
 ```
 
-The `demo.systx` script demonstrates looping with labels and conditional jumps.
-It showcases random numbers, list manipulation and string case conversion.
+The `demo.systx` script demonstrates while loops, function arguments and
+writing output to a file alongside list and string manipulation.

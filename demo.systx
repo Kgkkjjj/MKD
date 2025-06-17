@@ -1,8 +1,8 @@
-# Demo script demonstrating functions and loops with extra commands
+# Demo script for the extended Systx language
 rand 10 r
 print "Random number:" r
-set n 5
-call factorial
+
+call factorial 5
 print "Factorial:" result
 
 set text "hello,world"
@@ -15,13 +15,19 @@ join parts "-" joined
 print "Joined:" joined
 print "First upper:" first_upper
 print "Count:" count
+
+open "demo.txt" "w" fh
+write fh joined
+write fh "\n"
+close fh
 exit
 
-func factorial
+func factorial n
 set result 1
-:loop
-mul result n result
-dec n
-if n > 1 goto loop
+while n > 1
+    mul result n result
+    dec n
+endwhile
+setg result result
 return
 end
