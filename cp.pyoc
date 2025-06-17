@@ -1,11 +1,13 @@
 import sys
 from fs import copy_file
+from cli import require_args
+
+USAGE = "Usage: cp.pyoc <src> <dst>"
 
 
 def main(argv):
     """Copy a file."""
-    if len(argv) < 3:
-        print(f"Usage: {argv[0]} <src> <dst>")
+    if not require_args(argv, 2, USAGE):
         return
     copy_file(argv[1], argv[2])
 

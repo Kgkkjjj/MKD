@@ -1,11 +1,13 @@
 import sys
 from file_utils import delete
+from cli import require_args
+
+USAGE = "Usage: rm.pyoc <path>"
 
 
 def main(argv):
     """Remove a file or directory."""
-    if len(argv) < 2:
-        print(f"Usage: {argv[0]} <path>")
+    if not require_args(argv, 1, USAGE):
         return
     delete(argv[1])
 

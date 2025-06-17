@@ -55,9 +55,21 @@ def run_string(code: str, args):
     exec(compile(code, path, 'exec'), globals_dict)
 
 
+def list_scripts():
+    """List available .pyoc scripts in the current directory."""
+    base = os.path.dirname(__file__)
+    for name in sorted(os.listdir(base)):
+        if name.endswith('.pyoc') and name != 'pyoc.py':
+            print(name)
+
+
 def main():
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 2 or sys.argv[1] in ('-h', '--help'):
         print(f"Usage: {sys.argv[0]} <script.pyoc> [args...]")
+        print(f"       {sys.argv[0]} --list")
+        return
+    if sys.argv[1] == '--list':
+        list_scripts()
         return
     script = sys.argv[1]
     if not os.path.exists(script):

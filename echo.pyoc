@@ -1,8 +1,13 @@
 import sys
+from cli import require_args
+
+USAGE = "Usage: echo.pyoc <text>..."
 
 
 def main(argv):
     """Print the given arguments separated by spaces."""
+    if not require_args(argv, 1, USAGE):
+        return
     print(' '.join(argv[1:]))
 
 

@@ -20,6 +20,7 @@ Python modules.
 - `process` - run shell commands
 - `http` - simple HTTP GET requests
 - `args` - parse key=value arguments
+- `cli` - helpers for displaying usage
 - `collections_utils` - list utilities
 - `env` - environment variable access
 - `csv_utils` - read and write CSV files
@@ -83,6 +84,9 @@ These scripts can be executed with `python pyoc.py <tool>.pyoc`:
 - `mv.pyoc` - move or rename a file
 - `mkdir.pyoc` - create directories
 - `grep.pyoc` - search for text in a file
+
+Use `python pyoc.py --list` to see all available commands. Every tool accepts
+`--help` to print its usage.
 
 ## Usage
 

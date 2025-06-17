@@ -1,11 +1,13 @@
 import sys
 from fs import read_file
+from cli import require_args
+
+USAGE = "Usage: wc.pyoc <file>"
 
 
 def main(argv):
     """Count lines, words and bytes of a file."""
-    if len(argv) < 2:
-        print(f"Usage: {argv[0]} <file>")
+    if not require_args(argv, 1, USAGE):
         return
     text = read_file(argv[1])
     lines = text.splitlines()

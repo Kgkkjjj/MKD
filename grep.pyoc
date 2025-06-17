@@ -1,11 +1,13 @@
 import sys
 from fs import read_file
+from cli import require_args
+
+USAGE = "Usage: grep.pyoc <pattern> <file>"
 
 
 def main(argv):
     """Search a file for a substring and print matching lines."""
-    if len(argv) < 3:
-        print(f"Usage: {argv[0]} <pattern> <file>")
+    if not require_args(argv, 2, USAGE):
         return
     pattern = argv[1]
     lines = read_file(argv[2]).splitlines()

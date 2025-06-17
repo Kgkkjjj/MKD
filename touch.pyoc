@@ -1,11 +1,13 @@
 import sys
 import os
+from cli import require_args
+
+USAGE = "Usage: touch.pyoc <file>"
 
 
 def main(argv):
     """Create a file if missing or update its timestamp."""
-    if len(argv) < 2:
-        print(f"Usage: {argv[0]} <file>")
+    if not require_args(argv, 1, USAGE):
         return
     path = argv[1]
     with open(path, 'a'):

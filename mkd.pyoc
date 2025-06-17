@@ -4,13 +4,15 @@ from args import parse as parse_args
 from log import log
 from time_utils import current_timestamp
 from os_utils import path_join
+from cli import require_args
+
+USAGE = "Usage: mkd.pyoc <directory> [--log] [--join=<child>]"
 
 
 def main(argv):
-    opts, positional = parse_args(argv[1:])
-    if not positional:
-        print(f"Usage: {argv[0]} <directory> [--log]")
+    if not require_args(argv, 1, USAGE):
         return
+    opts, positional = parse_args(argv[1:])
     directory = positional[0]
     make_dir(directory)
     if opts.get('log'):

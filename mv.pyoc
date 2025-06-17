@@ -1,11 +1,13 @@
 import sys
 from file_utils import move
+from cli import require_args
+
+USAGE = "Usage: mv.pyoc <src> <dst>"
 
 
 def main(argv):
     """Move or rename a file."""
-    if len(argv) < 3:
-        print(f"Usage: {argv[0]} <src> <dst>")
+    if not require_args(argv, 2, USAGE):
         return
     move(argv[1], argv[2])
 

@@ -1,9 +1,14 @@
 import sys
 from fs import list_dir
+from cli import require_args
+
+USAGE = "Usage: ls.pyoc [directory]"
 
 
 def main(argv):
     """List directory entries."""
+    if not require_args(argv, 0, USAGE):
+        return
     path = argv[1] if len(argv) > 1 else '.'
     for entry in list_dir(path):
         print(entry)

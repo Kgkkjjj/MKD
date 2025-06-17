@@ -1,11 +1,13 @@
 import sys
 from fs import read_file
+from cli import require_args
+
+USAGE = "Usage: tail.pyoc <file> [count]"
 
 
 def main(argv):
     """Show the last lines of a file."""
-    if len(argv) < 2:
-        print(f"Usage: {argv[0]} <file> [count]")
+    if not require_args(argv, 1, USAGE):
         return
     count = int(argv[2]) if len(argv) > 2 else 10
     lines = read_file(argv[1]).splitlines()
