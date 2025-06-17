@@ -121,7 +121,12 @@ with a command followed by arguments. Available commands are:
 - `set <var> <value>` – assign a number or string to a variable
 - `add <a> <b> <dest>` – add two numbers and store the result
 - `sub <a> <b> <dest>` – subtract two numbers and store the result
+- `mul <a> <b> <dest>` – multiply two numbers
+- `div <a> <b> <dest>` – integer divide two numbers
 - `print <values...>` – print one or more values or quoted strings
+- `:label` – mark a jump target
+- `goto <label>` – jump to a label
+- `if <a> <op> <b> goto <label>` – conditional jump using `==`, `!=`, `<`, `>`, `<=`, `>=`
 
 Run a script with:
 
@@ -129,4 +134,4 @@ Run a script with:
 python systx.py demo.systx
 ```
 
-The `demo.systx` script demonstrates basic variable assignment and arithmetic.
+The `demo.systx` script demonstrates looping with labels and conditional jumps.

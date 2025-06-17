@@ -1,5 +1,7 @@
-# Demo script for systx
-set x 5
-set y 7
-add x y total
-print "Total:" total
+# Demo script demonstrating loops and arithmetic
+set count 1
+:loop
+print "Count:" count
+add count 1 count
+if count <= 5 goto loop
+print "Done"
