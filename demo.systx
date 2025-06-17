@@ -1,7 +1,14 @@
-# Demo script demonstrating loops and arithmetic
-set count 1
+# Demo script demonstrating functions and loops
+set n 5
+call factorial
+print "Factorial:" result
+exit
+
+func factorial
+set result 1
 :loop
-print "Count:" count
-add count 1 count
-if count <= 5 goto loop
-print "Done"
+mul result n result
+sub n 1 n
+if n > 1 goto loop
+return
+end

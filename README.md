@@ -123,10 +123,16 @@ with a command followed by arguments. Available commands are:
 - `sub <a> <b> <dest>` – subtract two numbers and store the result
 - `mul <a> <b> <dest>` – multiply two numbers
 - `div <a> <b> <dest>` – integer divide two numbers
+- `mod <a> <b> <dest>` – remainder after dividing
+- `read <var>` – read a line from standard input into a variable
 - `print <values...>` – print one or more values or quoted strings
 - `:label` – mark a jump target
 - `goto <label>` – jump to a label
 - `if <a> <op> <b> goto <label>` – conditional jump using `==`, `!=`, `<`, `>`, `<=`, `>=`
+- `func <name>` ... `end` – define a function
+- `call <name>` – execute a function
+- `return` – return from a function
+- `exit` – stop execution immediately
 
 Run a script with:
 
