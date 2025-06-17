@@ -1,0 +1,17 @@
+import sys
+import zipfile
+from cli import require_args
+
+USAGE = "Usage: unzip.pyoc <archive.zip>"
+
+
+def main(argv):
+    if not require_args(argv, 1, USAGE):
+        return
+    archive = argv[1]
+    with zipfile.ZipFile(archive, 'r') as zf:
+        zf.extractall()
+
+
+if __name__ == '__main__':
+    main(sys.argv)

@@ -1,0 +1,15 @@
+"""Tiny SSH port checker."""
+
+import socket
+
+
+def check_ssh(host: str, port: int = 22) -> bool:
+    """Return True if the SSH port is open."""
+    s = socket.socket()
+    s.settimeout(1)
+    try:
+        s.connect((host, port))
+        s.close()
+        return True
+    except OSError:
+        return False

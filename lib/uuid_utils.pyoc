@@ -1,0 +1,11 @@
+"""Helpers for generating UUID strings."""
+
+import uuid
+
+
+def new_uuid() -> str:
+    return str(uuid.uuid4())
+
+
+def uuid5(namespace: uuid.UUID, name: str) -> str:
+    return str(uuid.uuid5(namespace, name))

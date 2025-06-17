@@ -1,0 +1,15 @@
+import sys
+from fs import remove_dir
+from cli import require_args
+
+USAGE = "Usage: rmdir.pyoc <directory>"
+
+
+def main(argv):
+    if not require_args(argv, 1, USAGE):
+        return
+    remove_dir(argv[1])
+
+
+if __name__ == '__main__':
+    main(sys.argv)

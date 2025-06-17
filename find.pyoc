@@ -1,0 +1,22 @@
+import sys
+import os
+from cli import require_args
+
+USAGE = "Usage: find.pyoc <directory> <name>"
+
+
+def search(path, name):
+    for root, _, files in os.walk(path):
+        for f in files:
+            if name in f:
+                print(os.path.join(root, f))
+
+
+def main(argv):
+    if not require_args(argv, 2, USAGE):
+        return
+    search(argv[1], argv[2])
+
+
+if __name__ == '__main__':
+    main(sys.argv)

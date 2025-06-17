@@ -1,0 +1,16 @@
+import sys
+from cli import require_args
+
+USAGE = "Usage: paste.pyoc <file1> <file2>"
+
+
+def main(argv):
+    if not require_args(argv, 2, USAGE):
+        return
+    with open(argv[1]) as f1, open(argv[2]) as f2:
+        for a, b in zip(f1, f2):
+            print(a.rstrip('\n') + '\t' + b.rstrip('\n'))
+
+
+if __name__ == '__main__':
+    main(sys.argv)

@@ -1,0 +1,10 @@
+# Simple command line helpers for .pyoc scripts
+import sys
+
+
+def require_args(argv, count, usage: str) -> bool:
+    """Return True if enough positional args provided or print usage."""
+    if any(arg in ('--help', '-h') for arg in argv[1:]) or len(argv) - 1 < count:
+        print(usage)
+        return False
+    return True

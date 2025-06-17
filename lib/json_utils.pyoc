@@ -1,0 +1,32 @@
+"""Convenience wrappers around Python's json module."""
+
+import os
+import json
+
+
+def read(path: str):
+    with open(path, 'r') as f:
+        return json.load(f)
+
+
+def write(path: str, data) -> None:
+    with open(path, 'w') as f:
+        json.dump(data, f)
+
+
+def loads(text: str):
+    return json.loads(text)
+
+
+def dumps(obj, pretty: bool = False) -> str:
+    if pretty:
+        return json.dumps(obj, indent=2, sort_keys=True)
+    return json.dumps(obj)
+
+
+def update_file(path: str, obj) -> None:
+    data = {}
+    if os.path.exists(path):
+        data = read(path)
+    data.update(obj)
+    write(path, data)

@@ -1,0 +1,23 @@
+import sys
+import os
+import time
+from cli import require_args
+
+USAGE = "Usage: stat.pyoc <file>"
+
+
+def main(argv):
+    if not require_args(argv, 1, USAGE):
+        return
+    path = argv[1]
+    if not os.path.exists(path):
+        print("Not found")
+        return
+    size = os.path.getsize(path)
+    mtime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(os.path.getmtime(path)))
+    print(f"Size: {size} bytes")
+    print(f"Modified: {mtime}")
+
+
+if __name__ == '__main__':
+    main(sys.argv)

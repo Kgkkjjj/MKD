@@ -1,0 +1,9 @@
+"""Temporary file helpers."""
+
+import tempfile
+
+
+def create_temp(prefix: str = 'tmp') -> str:
+    """Create and return a path to a temporary file."""
+    fd, path = tempfile.mkstemp(prefix=prefix)
+    return path

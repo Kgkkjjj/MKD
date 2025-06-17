@@ -1,0 +1,29 @@
+"""Helper utilities for working with lists and arrays."""
+
+
+def chunk(lst, size):
+    """Yield successive chunks from lst of length size."""
+    for i in range(0, len(lst), size):
+        yield lst[i:i + size]
+
+
+def flatten(lst):
+    """Flatten one level of nesting."""
+    result = []
+    for item in lst:
+        if isinstance(item, list):
+            result.extend(item)
+        else:
+            result.append(item)
+    return result
+
+
+def unique(lst):
+    """Return list with duplicates removed while preserving order."""
+    seen = set()
+    out = []
+    for item in lst:
+        if item not in seen:
+            out.append(item)
+            seen.add(item)
+    return out

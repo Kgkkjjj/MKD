@@ -1,0 +1,25 @@
+import sys
+from cli import require_args
+from fs import read_file
+
+USAGE = "Usage: diff.pyoc <file1> <file2>"
+
+
+def main(argv):
+    if not require_args(argv, 2, USAGE):
+        return
+    a_lines = read_file(argv[1]).splitlines()
+    b_lines = read_file(argv[2]).splitlines()
+    max_len = max(len(a_lines), len(b_lines))
+    for i in range(max_len):
+        a = a_lines[i] if i < len(a_lines) else ''
+        b = b_lines[i] if i < len(b_lines) else ''
+        if a != b:
+            if a:
+                print(f"< {a}")
+            if b:
+                print(f"> {b}")
+
+
+if __name__ == '__main__':
+    main(sys.argv)

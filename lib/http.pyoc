@@ -1,0 +1,20 @@
+"""Very small HTTP helper wrapping urllib."""
+
+import urllib.request
+
+
+def get(url: str) -> str:
+    with urllib.request.urlopen(url) as resp:
+        return resp.read().decode('utf-8')
+
+
+def post(url: str, data: str) -> str:
+    req = urllib.request.Request(url, data=data.encode('utf-8'))
+    with urllib.request.urlopen(req) as resp:
+        return resp.read().decode('utf-8')
+
+
+def head(url: str) -> dict:
+    req = urllib.request.Request(url, method='HEAD')
+    with urllib.request.urlopen(req) as resp:
+        return dict(resp.headers)

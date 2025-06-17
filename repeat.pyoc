@@ -1,0 +1,17 @@
+import sys
+from cli import require_args
+
+USAGE = "Usage: repeat.pyoc <count> <text>"
+
+
+def main(argv):
+    if not require_args(argv, 2, USAGE):
+        return
+    count = int(argv[1])
+    text = ' '.join(argv[2:])
+    for _ in range(count):
+        print(text)
+
+
+if __name__ == '__main__':
+    main(sys.argv)

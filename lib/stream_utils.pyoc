@@ -1,0 +1,6 @@
+"""Line-based stream reader."""
+
+
+def read_lines(stream) -> list:
+    """Return all lines from a text stream without trailing newlines."""
+    return [line.rstrip('\n') for line in stream]

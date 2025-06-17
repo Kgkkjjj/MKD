@@ -1,0 +1,12 @@
+"""Minimal UDP echo server."""
+
+import socket
+
+
+def run(host: str, port: int) -> None:
+    """Run a UDP echo server for a single datagram."""
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.bind((host, port))
+    data, addr = s.recvfrom(1024)
+    s.sendto(data, addr)
+    s.close()

@@ -1,0 +1,19 @@
+"""DNS helpers."""
+
+import socket
+
+
+def lookup(hostname: str) -> str:
+    """Return the IP for a hostname or empty string on failure."""
+    try:
+        return socket.gethostbyname(hostname)
+    except socket.gaierror:
+        return ''
+
+
+def reverse(ip: str) -> str:
+    """Return the hostname for an IP address or empty string."""
+    try:
+        return socket.gethostbyaddr(ip)[0]
+    except socket.herror:
+        return ''

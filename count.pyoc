@@ -1,0 +1,18 @@
+import sys
+from cli import require_args
+from fs import read_file
+
+USAGE = "Usage: count.pyoc <substr> <file>"
+
+
+def main(argv):
+    """Count occurrences of a substring in a file."""
+    if not require_args(argv, 2, USAGE):
+        return
+    sub = argv[1]
+    text = read_file(argv[2])
+    print(text.count(sub))
+
+
+if __name__ == '__main__':
+    main(sys.argv)

@@ -1,0 +1,22 @@
+"""Extra helpers built on top of itertools."""
+
+from itertools import tee
+
+
+def pairwise(iterable):
+    a, b = tee(iterable)
+    next(b, None)
+    for x, y in zip(a, b):
+        yield x, y
+
+
+def windowed(iterable, n):
+    iters = tee(iterable, n)
+    for i, it in enumerate(iters):
+        for _ in range(i):
+            next(it, None)
+    while True:
+        vals = [next(it, None) for it in iters]
+        if any(v is None for v in vals):
+            break
+        yield tuple(vals)

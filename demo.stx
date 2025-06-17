@@ -1,0 +1,73 @@
+# Demo script for the extended Systx language
+rand 10 r
+print "Random number:" r
+
+argc argcount
+print "Arg count:" argcount
+arg 0 self
+print "Script name:" self
+envget HOME home
+print "Home:" home
+
+call factorial 5
+print "Factorial:" result
+
+set text "hello,world"
+split text "," parts
+get parts 0 first
+upper first first_upper
+append parts "python"
+lenlist parts count
+join parts "-" joined
+print "Joined:" joined
+print "First upper:" first_upper
+print "Count:" count
+
+open "demo.txt" "w" fh
+write fh joined
+write fh "\n"
+close fh
+readfile "demo.txt" contents
+print "File:" contents
+gui_init "Demo"
+gui_text gui_root editor
+gui_menu gui_root mainmenu
+gui_menu_add mainmenu "Open" open_file
+gui_menu_add mainmenu "Save" save_file
+gui_set_menu gui_root mainmenu
+gui_button gui_root "Quit" quit
+gui_start gui_root
+exit
+
+func quit
+gui_quit gui_root
+return
+end
+
+func open_file
+    gui_file_open_dialog path
+    if path == "" goto done_open
+    readfile path data
+    gui_text_set editor data
+    :done_open
+    return
+end
+
+func save_file
+    gui_file_save_dialog path
+    if path == "" goto done_save
+    gui_text_get editor data
+    writefile path data
+    :done_save
+    return
+end
+
+func factorial n
+set result 1
+while n > 1
+    mul result n result
+    dec n
+endwhile
+setg result result
+return
+end

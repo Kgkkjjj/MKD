@@ -1,0 +1,15 @@
+"""Simple TCP port scanner."""
+
+import socket
+
+
+def is_open(host: str, port: int) -> bool:
+    """Return True if the given host:port is accepting connections."""
+    s = socket.socket()
+    s.settimeout(1)
+    try:
+        s.connect((host, port))
+        s.close()
+        return True
+    except OSError:
+        return False

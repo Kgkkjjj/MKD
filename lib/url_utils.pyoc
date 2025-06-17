@@ -1,0 +1,14 @@
+"""Helpers for working with URLs."""
+
+from urllib.parse import urlparse, urlencode
+
+
+def parse(url: str):
+    return urlparse(url)
+
+
+def build(base: str, **params):
+    query = urlencode(params)
+    if query:
+        return f"{base}?{query}"
+    return base

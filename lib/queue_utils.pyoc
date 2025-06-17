@@ -1,0 +1,17 @@
+"""Simple queue implementation."""
+
+from collections import deque
+
+
+class Queue:
+    def __init__(self):
+        self._d = deque()
+
+    def push(self, item):
+        self._d.append(item)
+
+    def pop(self):
+        return self._d.popleft() if self._d else None
+
+    def empty(self) -> bool:
+        return not self._d

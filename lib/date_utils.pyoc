@@ -1,0 +1,15 @@
+"""Date helper functions."""
+
+import datetime
+
+
+def today_string(fmt: str = '%Y-%m-%d') -> str:
+    return datetime.date.today().strftime(fmt)
+
+
+def parse(date_str: str, fmt: str = '%Y-%m-%d') -> datetime.date:
+    return datetime.datetime.strptime(date_str, fmt).date()
+
+
+def format(date_obj: datetime.date, fmt: str = '%Y-%m-%d') -> str:
+    return date_obj.strftime(fmt)

@@ -1,0 +1,11 @@
+"""Utilities for simple text parsing."""
+
+import re
+
+
+def find_all(pattern: str, text: str):
+    return re.findall(pattern, text)
+
+
+def lines(text: str):
+    return [ln.rstrip('\n') for ln in text.splitlines()]

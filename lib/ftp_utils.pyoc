@@ -1,0 +1,12 @@
+"""Tiny FTP helpers."""
+
+from ftplib import FTP
+
+
+def list_dir(host: str, path: str = '') -> list:
+    """Return directory listing from an anonymous FTP server."""
+    ftp = FTP(host)
+    ftp.login()
+    files = ftp.nlst(path)
+    ftp.quit()
+    return files

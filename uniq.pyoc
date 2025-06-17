@@ -1,0 +1,21 @@
+import sys
+from cli import require_args
+from fs import read_file
+
+USAGE = "Usage: uniq.pyoc <file>"
+
+
+def main(argv):
+    """Print unique lines from a file preserving order."""
+    if not require_args(argv, 1, USAGE):
+        return
+    seen = set()
+    lines = read_file(argv[1]).splitlines()
+    for line in lines:
+        if line not in seen:
+            print(line)
+            seen.add(line)
+
+
+if __name__ == '__main__':
+    main(sys.argv)

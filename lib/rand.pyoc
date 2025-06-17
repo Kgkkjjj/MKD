@@ -1,0 +1,24 @@
+"""Small wrappers around the ``random`` module."""
+
+import random
+
+
+def randint(a: int, b: int) -> int:
+    return random.randint(a, b)
+
+
+def choice(seq):
+    return random.choice(seq)
+
+
+def shuffle(seq):
+    random.shuffle(seq)
+    return seq
+
+
+def seed(value=None):
+    random.seed(value)
+
+
+def randfloat(a: float, b: float) -> float:
+    return random.uniform(a, b)

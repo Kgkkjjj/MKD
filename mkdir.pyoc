@@ -1,0 +1,16 @@
+import sys
+from fs import make_dir
+from cli import require_args
+
+USAGE = "Usage: mkdir.pyoc <directory>"
+
+
+def main(argv):
+    """Create directories if they do not exist."""
+    if not require_args(argv, 1, USAGE):
+        return
+    make_dir(argv[1])
+
+
+if __name__ == '__main__':
+    main(sys.argv)

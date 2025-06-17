@@ -1,0 +1,19 @@
+"""Small wrappers around the os module."""
+
+import os
+
+
+def cwd() -> str:
+    return os.getcwd()
+
+
+def list_files(path: str):
+    return [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
+
+
+def list_dirs(path: str):
+    return [d for d in os.listdir(path) if os.path.isdir(os.path.join(path, d))]
+
+
+def path_join(*parts):
+    return os.path.join(*parts)

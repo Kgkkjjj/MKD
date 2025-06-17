@@ -1,0 +1,18 @@
+"""Simple XML parsing and writing helpers."""
+
+import xml.etree.ElementTree as ET
+
+
+def read(path: str):
+    return ET.parse(path).getroot()
+
+
+def write(path: str, element):
+    tree = ET.ElementTree(element)
+    tree.write(path)
+
+
+def element(tag: str, text: str = '', **attrs):
+    el = ET.Element(tag, attrib=attrs)
+    el.text = text
+    return el
