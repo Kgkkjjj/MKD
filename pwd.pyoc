@@ -1,0 +1,16 @@
+import sys
+import os
+from cli import require_args
+
+USAGE = "Usage: pwd.pyoc"
+
+
+def main(argv):
+    """Print the current working directory."""
+    if not require_args(argv, 0, USAGE):
+        return
+    print(os.getcwd())
+
+
+if __name__ == '__main__':
+    main(sys.argv)

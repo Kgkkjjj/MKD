@@ -1,0 +1,19 @@
+import sys
+from cli import require_args
+
+USAGE = "Usage: calc.pyoc <expression>"
+
+
+def main(argv):
+    """Evaluate a Python expression and print the result."""
+    if not require_args(argv, 1, USAGE):
+        return
+    expr = ' '.join(argv[1:])
+    try:
+        print(eval(expr, {}))
+    except Exception as e:
+        print(f"Error: {e}")
+
+
+if __name__ == '__main__':
+    main(sys.argv)

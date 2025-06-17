@@ -85,6 +85,19 @@ These scripts can be executed with `python pyoc.py <tool>.pyoc`:
 - `mkdir.pyoc` - create directories
 - `grep.pyoc` - search for text in a file
 
+- `pwd.pyoc` - print the current directory
+- `date.pyoc` - show the current date and time
+- `basename.pyoc` - display a path\'s basename
+- `dirname.pyoc` - display a path\'s directory
+- `sort.pyoc` - sort lines of a file
+- `uniq.pyoc` - filter duplicate lines
+- `rev.pyoc` - reverse lines of a file
+- `count.pyoc` - count substring occurrences
+- `sleep.pyoc` - pause execution
+- `whoami.pyoc` - show the current user
+- `env.pyoc` - print an environment variable
+- `calc.pyoc` - evaluate a Python expression
+
 Use `python pyoc.py --list` to see all available commands. Every tool accepts
 `--help` to print its usage.
 

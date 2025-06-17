@@ -1,0 +1,16 @@
+import sys
+from cli import require_args
+from path import dirname
+
+USAGE = "Usage: dirname.pyoc <path>"
+
+
+def main(argv):
+    """Print the directory name of a path."""
+    if not require_args(argv, 1, USAGE):
+        return
+    print(dirname(argv[1]))
+
+
+if __name__ == '__main__':
+    main(sys.argv)

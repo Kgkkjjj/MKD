@@ -1,0 +1,16 @@
+import sys
+import time
+from cli import require_args
+
+USAGE = "Usage: date.pyoc"
+
+
+def main(argv):
+    """Print the current local date and time."""
+    if not require_args(argv, 0, USAGE):
+        return
+    print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()))
+
+
+if __name__ == '__main__':
+    main(sys.argv)

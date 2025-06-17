@@ -1,0 +1,18 @@
+import sys
+from cli import require_args
+from fs import read_file
+
+USAGE = "Usage: rev.pyoc <file>"
+
+
+def main(argv):
+    """Reverse the lines of a file."""
+    if not require_args(argv, 1, USAGE):
+        return
+    lines = read_file(argv[1]).splitlines()
+    for line in reversed(lines):
+        print(line)
+
+
+if __name__ == '__main__':
+    main(sys.argv)
