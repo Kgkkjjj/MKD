@@ -3,6 +3,10 @@ import os
 import shlex
 import time
 import random
+import tkinter as tk
+from tkinter import messagebox
+
+_RUN_LINES = None
 
 
 def eval_token(token, env_stack):
@@ -38,6 +42,27 @@ def run_line(tokens, env_stack, labels, funcs, call_stack, data_stack, pc_after,
     if not tokens:
         return None
     env = env_stack[-1]
+    def _call_func(name):
+        if name not in funcs:
+            return
+        start, params = funcs[name]
+        call_stack.append(pc_after)
+        env_stack.append({})
+        idx = start
+        while idx < len(_RUN_LINES):
+            toks = _RUN_LINES[idx]
+            idx += 1
+            if toks is None:
+                continue
+            new_pc = run_line(toks, env_stack, labels, funcs, call_stack, data_stack, idx, loops_end)
+            if new_pc is not None:
+                if new_pc == float('inf'):
+                    break
+                idx = int(new_pc)
+            if idx >= len(_RUN_LINES) or (toks and toks[0] == 'return'):
+                break
+        env_stack.pop()
+        call_stack.pop()
     cmd = tokens[0]
     if cmd == 'set' and len(tokens) >= 3:
         env[tokens[1]] = eval_token(tokens[2], env_stack)
@@ -198,6 +223,115 @@ def run_line(tokens, env_stack, labels, funcs, call_stack, data_stack, pc_after,
     elif cmd == 'system' and len(tokens) >= 2:
         cmdline = ' '.join(str(eval_token(t, env_stack)) for t in tokens[1:])
         os.system(cmdline)
+    elif cmd == 'gui_init' and len(tokens) >= 2:
+        title = str(eval_token(tokens[1], env_stack))
+        root = tk.Tk()
+        root.title(title)
+        env['gui_root'] = root
+    elif cmd == 'gui_label' and len(tokens) >= 3:
+        root = eval_token(tokens[1], env_stack)
+        text = str(eval_token(tokens[2], env_stack))
+        lbl = tk.Label(root, text=text)
+        lbl.pack()
+        if len(tokens) == 4:
+            env[tokens[3]] = lbl
+    elif cmd == 'gui_button' and len(tokens) >= 4:
+        root = eval_token(tokens[1], env_stack)
+        text = str(eval_token(tokens[2], env_stack))
+        func_name = tokens[3]
+        def cb(name=func_name):
+            _call_func(name)
+        btn = tk.Button(root, text=text, command=cb)
+        btn.pack()
+        if len(tokens) == 5:
+            env[tokens[4]] = btn
+    elif cmd == 'gui_entry' and len(tokens) >= 3:
+        root = eval_token(tokens[1], env_stack)
+        ent = tk.Entry(root)
+        ent.pack()
+        env[tokens[2]] = ent
+    elif cmd == 'gui_get' and len(tokens) == 3:
+        ent = eval_token(tokens[1], env_stack)
+        env[tokens[2]] = ent.get()
+    elif cmd == 'gui_set' and len(tokens) == 3:
+        ent = eval_token(tokens[1], env_stack)
+        ent.delete(0, tk.END)
+        ent.insert(0, str(eval_token(tokens[2], env_stack)))
+    elif cmd == 'gui_start' and len(tokens) >= 2:
+        root = eval_token(tokens[1], env_stack)
+        root.mainloop()
+    elif cmd == 'gui_quit' and len(tokens) >= 2:
+        root = eval_token(tokens[1], env_stack)
+        root.quit()
+    elif cmd == 'gui_title' and len(tokens) >= 3:
+        root = eval_token(tokens[1], env_stack)
+        title = str(eval_token(tokens[2], env_stack))
+        root.title(title)
+    elif cmd == 'gui_frame' and len(tokens) >= 3:
+        root = eval_token(tokens[1], env_stack)
+        frm = tk.Frame(root)
+        frm.pack()
+        env[tokens[2]] = frm
+    elif cmd == 'gui_pack' and len(tokens) == 2:
+        widget = eval_token(tokens[1], env_stack)
+        widget.pack()
+    elif cmd == 'gui_grid' and len(tokens) == 4:
+        widget = eval_token(tokens[1], env_stack)
+        row = int(eval_token(tokens[2], env_stack))
+        col = int(eval_token(tokens[3], env_stack))
+        widget.grid(row=row, column=col)
+    elif cmd == 'gui_canvas' and len(tokens) >= 4:
+        root = eval_token(tokens[1], env_stack)
+        width = int(eval_token(tokens[2], env_stack))
+        height = int(eval_token(tokens[3], env_stack))
+        canvas = tk.Canvas(root, width=width, height=height)
+        canvas.pack()
+        if len(tokens) == 5:
+            env[tokens[4]] = canvas
+    elif cmd == 'gui_draw_line' and len(tokens) == 6:
+        canvas = eval_token(tokens[1], env_stack)
+        x1 = int(eval_token(tokens[2], env_stack))
+        y1 = int(eval_token(tokens[3], env_stack))
+        x2 = int(eval_token(tokens[4], env_stack))
+        y2 = int(eval_token(tokens[5], env_stack))
+        canvas.create_line(x1, y1, x2, y2)
+    elif cmd == 'gui_draw_rect' and len(tokens) == 6:
+        canvas = eval_token(tokens[1], env_stack)
+        x1 = int(eval_token(tokens[2], env_stack))
+        y1 = int(eval_token(tokens[3], env_stack))
+        x2 = int(eval_token(tokens[4], env_stack))
+        y2 = int(eval_token(tokens[5], env_stack))
+        canvas.create_rectangle(x1, y1, x2, y2)
+    elif cmd == 'gui_draw_oval' and len(tokens) == 6:
+        canvas = eval_token(tokens[1], env_stack)
+        x1 = int(eval_token(tokens[2], env_stack))
+        y1 = int(eval_token(tokens[3], env_stack))
+        x2 = int(eval_token(tokens[4], env_stack))
+        y2 = int(eval_token(tokens[5], env_stack))
+        canvas.create_oval(x1, y1, x2, y2)
+    elif cmd == 'gui_clear' and len(tokens) == 2:
+        canvas = eval_token(tokens[1], env_stack)
+        canvas.delete('all')
+    elif cmd == 'gui_message' and len(tokens) >= 3:
+        title = str(eval_token(tokens[1], env_stack))
+        msg = str(eval_token(tokens[2], env_stack))
+        messagebox.showinfo(title, msg)
+    elif cmd == 'gui_bind' and len(tokens) >= 4:
+        widget = eval_token(tokens[1], env_stack)
+        event = str(eval_token(tokens[2], env_stack))
+        func_name = tokens[3]
+        def cb(event_obj=None, name=func_name):
+            _call_func(name)
+        widget.bind(event, cb)
+    elif cmd == 'gui_image' and len(tokens) >= 4:
+        root = eval_token(tokens[1], env_stack)
+        path = str(eval_token(tokens[2], env_stack))
+        img = tk.PhotoImage(file=path)
+        lbl = tk.Label(root, image=img)
+        lbl.image = img
+        lbl.pack()
+        if len(tokens) == 4:
+            env[tokens[3]] = lbl
     elif cmd == 'joinpath' and len(tokens) == 4:
         a = str(eval_token(tokens[1], env_stack))
         b = str(eval_token(tokens[2], env_stack))
@@ -311,6 +445,9 @@ def run_systx(path, args):
 
     if loop_stack:
         raise ValueError('Unclosed while loop')
+
+    global _RUN_LINES
+    _RUN_LINES = lines
 
     call_stack = []
     data_stack = []

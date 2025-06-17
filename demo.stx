@@ -29,8 +29,16 @@ write fh "\n"
 close fh
 readfile "demo.txt" contents
 print "File:" contents
-system echo Done
+gui_init "Demo"
+gui_label gui_root "Hello"
+gui_button gui_root "Quit" quit
+gui_start gui_root
 exit
+
+func quit
+gui_quit gui_root
+return
+end
 
 func factorial n
 set result 1

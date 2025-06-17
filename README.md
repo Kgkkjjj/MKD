@@ -190,6 +190,26 @@ with a command followed by arguments. Available commands are:
 - `envget <name> <dest>` – get an environment variable
 - `system <command...>` – execute a shell command
 - `joinpath <a> <b> <dest>` – join two path segments
+- `gui_init <title>` – create a GUI window
+- `gui_label <root> <text> [dest]` – add a label
+- `gui_button <root> <text> <func> [dest]` – add a button calling a function
+- `gui_entry <root> <dest>` – add a text entry widget
+- `gui_get <entry> <dest>` – read text from an entry
+- `gui_set <entry> <text>` – set entry text
+- `gui_start <root>` – start the GUI event loop
+- `gui_quit <root>` – stop the GUI
+- `gui_title <root> <title>` – change window title
+- `gui_frame <root> <dest>` – create a frame
+- `gui_pack <widget>` – pack a widget
+- `gui_grid <widget> <row> <col>` – place using grid
+- `gui_canvas <root> <w> <h> [dest]` – create a canvas
+- `gui_draw_line <canvas> <x1> <y1> <x2> <y2>` – draw a line
+- `gui_draw_rect <canvas> <x1> <y1> <x2> <y2>` – draw a rectangle
+- `gui_draw_oval <canvas> <x1> <y1> <x2> <y2>` – draw an oval
+- `gui_clear <canvas>` – clear a canvas
+- `gui_message <title> <msg>` – show a message box
+- `gui_bind <widget> <event> <func>` – bind an event to a function
+- `gui_image <root> <path> <dest>` – display an image
 
 Run a script with:
 
