@@ -30,7 +30,11 @@ close fh
 readfile "demo.txt" contents
 print "File:" contents
 gui_init "Demo"
-gui_label gui_root "Hello"
+gui_text gui_root editor
+gui_menu gui_root mainmenu
+gui_menu_add mainmenu "Open" open_file
+gui_menu_add mainmenu "Save" save_file
+gui_set_menu gui_root mainmenu
 gui_button gui_root "Quit" quit
 gui_start gui_root
 exit
@@ -38,6 +42,24 @@ exit
 func quit
 gui_quit gui_root
 return
+end
+
+func open_file
+    gui_file_open_dialog path
+    if path == "" goto done_open
+    readfile path data
+    gui_text_set editor data
+    :done_open
+    return
+end
+
+func save_file
+    gui_file_save_dialog path
+    if path == "" goto done_save
+    gui_text_get editor data
+    writefile path data
+    :done_save
+    return
 end
 
 func factorial n

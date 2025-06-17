@@ -4,7 +4,7 @@ import shlex
 import time
 import random
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, filedialog, colorchooser, ttk
 
 _RUN_LINES = None
 
@@ -332,6 +332,137 @@ def run_line(tokens, env_stack, labels, funcs, call_stack, data_stack, pc_after,
         lbl.pack()
         if len(tokens) == 4:
             env[tokens[3]] = lbl
+    elif cmd == 'gui_text' and len(tokens) >= 3:
+        root = eval_token(tokens[1], env_stack)
+        txt = tk.Text(root)
+        txt.pack()
+        env[tokens[2]] = txt
+    elif cmd == 'gui_text_get' and len(tokens) == 3:
+        txt = eval_token(tokens[1], env_stack)
+        env[tokens[2]] = txt.get('1.0', tk.END).rstrip('\n')
+    elif cmd == 'gui_text_set' and len(tokens) == 3:
+        txt = eval_token(tokens[1], env_stack)
+        txt.delete('1.0', tk.END)
+        txt.insert(tk.END, str(eval_token(tokens[2], env_stack)))
+    elif cmd == 'gui_text_insert' and len(tokens) == 4:
+        txt = eval_token(tokens[1], env_stack)
+        idx = str(eval_token(tokens[2], env_stack))
+        txt.insert(idx, str(eval_token(tokens[3], env_stack)))
+    elif cmd == 'gui_text_delete' and len(tokens) == 4:
+        txt = eval_token(tokens[1], env_stack)
+        start = str(eval_token(tokens[2], env_stack))
+        end = str(eval_token(tokens[3], env_stack))
+        txt.delete(start, end)
+    elif cmd == 'gui_scrollbar' and len(tokens) >= 3:
+        root = eval_token(tokens[1], env_stack)
+        sb = tk.Scrollbar(root)
+        sb.pack(side=tk.RIGHT, fill=tk.Y)
+        env[tokens[2]] = sb
+    elif cmd == 'gui_menu' and len(tokens) >= 3:
+        root = eval_token(tokens[1], env_stack)
+        menu = tk.Menu(root)
+        env[tokens[2]] = menu
+    elif cmd == 'gui_menu_add' and len(tokens) >= 4:
+        menu = eval_token(tokens[1], env_stack)
+        label = str(eval_token(tokens[2], env_stack))
+        func_name = tokens[3]
+        def cb(name=func_name):
+            _call_func(name)
+        menu.add_command(label=label, command=cb)
+    elif cmd == 'gui_menu_separator' and len(tokens) == 2:
+        menu = eval_token(tokens[1], env_stack)
+        menu.add_separator()
+    elif cmd == 'gui_menu_submenu' and len(tokens) == 4:
+        menu = eval_token(tokens[1], env_stack)
+        label = str(eval_token(tokens[2], env_stack))
+        submenu = eval_token(tokens[3], env_stack)
+        menu.add_cascade(label=label, menu=submenu)
+    elif cmd == 'gui_set_menu' and len(tokens) == 3:
+        root = eval_token(tokens[1], env_stack)
+        menu = eval_token(tokens[2], env_stack)
+        root.config(menu=menu)
+    elif cmd == 'gui_listbox' and len(tokens) >= 3:
+        root = eval_token(tokens[1], env_stack)
+        lb = tk.Listbox(root)
+        lb.pack()
+        env[tokens[2]] = lb
+    elif cmd == 'gui_listbox_insert' and len(tokens) == 4:
+        lb = eval_token(tokens[1], env_stack)
+        idx = eval_token(tokens[2], env_stack)
+        lb.insert(idx, str(eval_token(tokens[3], env_stack)))
+    elif cmd == 'gui_listbox_delete' and len(tokens) == 3:
+        lb = eval_token(tokens[1], env_stack)
+        idx = eval_token(tokens[2], env_stack)
+        lb.delete(idx)
+    elif cmd == 'gui_listbox_get' and len(tokens) == 4:
+        lb = eval_token(tokens[1], env_stack)
+        idx = eval_token(tokens[2], env_stack)
+        env[tokens[3]] = lb.get(idx)
+    elif cmd == 'gui_listbox_size' and len(tokens) == 3:
+        lb = eval_token(tokens[1], env_stack)
+        env[tokens[2]] = lb.size()
+    elif cmd == 'gui_checkbox' and len(tokens) >= 4:
+        root = eval_token(tokens[1], env_stack)
+        text = str(eval_token(tokens[2], env_stack))
+        var = tk.IntVar()
+        cb = tk.Checkbutton(root, text=text, variable=var)
+        cb.pack()
+        env[tokens[3]] = var
+    elif cmd == 'gui_check_get' and len(tokens) == 3:
+        var = eval_token(tokens[1], env_stack)
+        env[tokens[2]] = var.get()
+    elif cmd == 'gui_radio_group' and len(tokens) == 2:
+        env[tokens[1]] = tk.IntVar()
+    elif cmd == 'gui_radio' and len(tokens) >= 5:
+        root = eval_token(tokens[1], env_stack)
+        text = str(eval_token(tokens[2], env_stack))
+        value = eval_token(tokens[3], env_stack)
+        var = eval_token(tokens[4], env_stack)
+        rb = tk.Radiobutton(root, text=text, value=value, variable=var)
+        rb.pack()
+        if len(tokens) == 6:
+            env[tokens[5]] = rb
+    elif cmd == 'gui_radio_get' and len(tokens) == 3:
+        var = eval_token(tokens[1], env_stack)
+        env[tokens[2]] = var.get()
+    elif cmd == 'gui_scale' and len(tokens) >= 5:
+        root = eval_token(tokens[1], env_stack)
+        fr = float(eval_token(tokens[2], env_stack))
+        to = float(eval_token(tokens[3], env_stack))
+        scale = tk.Scale(root, from_=fr, to=to, orient=tk.HORIZONTAL)
+        scale.pack()
+        env[tokens[4]] = scale
+    elif cmd == 'gui_scale_get' and len(tokens) == 3:
+        scale = eval_token(tokens[1], env_stack)
+        env[tokens[2]] = scale.get()
+    elif cmd == 'gui_progress' and len(tokens) >= 3:
+        root = eval_token(tokens[1], env_stack)
+        length = int(eval_token(tokens[2], env_stack)) if len(tokens) >= 3 else 100
+        pb = ttk.Progressbar(root, length=length, mode='determinate')
+        pb.pack()
+        if len(tokens) == 4:
+            env[tokens[3]] = pb
+    elif cmd == 'gui_progress_set' and len(tokens) == 3:
+        pb = eval_token(tokens[1], env_stack)
+        val = int(eval_token(tokens[2], env_stack))
+        pb['value'] = val
+    elif cmd == 'gui_file_open_dialog' and len(tokens) == 2:
+        env[tokens[1]] = filedialog.askopenfilename()
+    elif cmd == 'gui_file_save_dialog' and len(tokens) == 2:
+        env[tokens[1]] = filedialog.asksaveasfilename()
+    elif cmd == 'gui_color_dialog' and len(tokens) == 2:
+        color = colorchooser.askcolor()[1]
+        env[tokens[1]] = color if color else ''
+    elif cmd == 'gui_after' and len(tokens) >= 4:
+        root = eval_token(tokens[1], env_stack)
+        ms = int(eval_token(tokens[2], env_stack))
+        func_name = tokens[3]
+        def cb(name=func_name):
+            _call_func(name)
+        root.after(ms, cb)
+    elif cmd == 'gui_destroy' and len(tokens) == 2:
+        widget = eval_token(tokens[1], env_stack)
+        widget.destroy()
     elif cmd == 'joinpath' and len(tokens) == 4:
         a = str(eval_token(tokens[1], env_stack))
         b = str(eval_token(tokens[2], env_stack))

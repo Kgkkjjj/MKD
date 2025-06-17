@@ -210,6 +210,36 @@ with a command followed by arguments. Available commands are:
 - `gui_message <title> <msg>` – show a message box
 - `gui_bind <widget> <event> <func>` – bind an event to a function
 - `gui_image <root> <path> <dest>` – display an image
+- `gui_text <root> <dest>` – create a multi-line text widget
+- `gui_text_get <text> <dest>` – get text content
+- `gui_text_set <text> <value>` – replace text content
+- `gui_text_insert <text> <index> <value>` – insert text
+- `gui_text_delete <text> <start> <end>` – delete a range of text
+- `gui_scrollbar <root> <dest>` – add a scrollbar
+- `gui_menu <root> <dest>` – create a menu
+- `gui_menu_add <menu> <label> <func>` – add a command to a menu
+- `gui_menu_separator <menu>` – add a separator
+- `gui_menu_submenu <menu> <label> <submenu>` – attach a submenu
+- `gui_set_menu <root> <menu>` – set the window menu bar
+- `gui_listbox <root> <dest>` – create a list box
+- `gui_listbox_insert <listbox> <index> <value>` – insert list item
+- `gui_listbox_delete <listbox> <index>` – remove list item
+- `gui_listbox_get <listbox> <index> <dest>` – get list item
+- `gui_listbox_size <listbox> <dest>` – number of items
+- `gui_checkbox <root> <text> <dest>` – create a checkbox
+- `gui_check_get <var> <dest>` – get checkbox value
+- `gui_radio_group <dest>` – create a radio variable
+- `gui_radio <root> <text> <value> <var> [dest]` – add a radio button
+- `gui_radio_get <var> <dest>` – get radio value
+- `gui_scale <root> <from> <to> <dest>` – create a slider
+- `gui_scale_get <scale> <dest>` – read slider value
+- `gui_progress <root> <length> [dest]` – create a progress bar
+- `gui_progress_set <bar> <value>` – set progress value
+- `gui_file_open_dialog <dest>` – file open dialog
+- `gui_file_save_dialog <dest>` – file save dialog
+- `gui_color_dialog <dest>` – pick a color
+- `gui_after <root> <ms> <func>` – call a function after delay
+- `gui_destroy <widget>` – destroy a widget
 
 Run a script with:
 
