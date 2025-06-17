@@ -282,7 +282,7 @@ def run_systx(path, args):
 
 def main():
     if len(sys.argv) < 2 or sys.argv[1] in ('-h', '--help'):
-        print(f"Usage: {sys.argv[0]} <script.systx> [args]")
+        print(f"Usage: {sys.argv[0]} <script.stx> [args]")
         return
     script = sys.argv[1]
     if not os.path.exists(script):

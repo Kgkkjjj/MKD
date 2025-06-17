@@ -182,8 +182,8 @@ with a command followed by arguments. Available commands are:
 Run a script with:
 
 ```bash
-python systx.py demo.systx
+python systx.py demo.stx
 ```
 
-The `demo.systx` script demonstrates while loops, function arguments and
+The `demo.stx` script demonstrates while loops, function arguments and
 writing output to a file alongside list and string manipulation.
