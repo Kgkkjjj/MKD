@@ -186,5 +186,9 @@ Run a script with:
 python systx.py demo.stx
 ```
 
+Systx scripts must be saved with the `.stx` extension. The interpreter
+will open them using UTF-8 encoding so they work the same on any
+platform.
+
 The `demo.stx` script demonstrates while loops, function arguments and
 writing output to a file alongside list and string manipulation.

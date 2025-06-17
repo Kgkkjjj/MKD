@@ -223,7 +223,7 @@ def run_line(tokens, env_stack, labels, funcs, call_stack, data_stack, pc_after,
 
 def run_systx(path, args):
     env_stack = [{'args': args}]
-    with open(path) as f:
+    with open(path, encoding='utf-8') as f:
         raw_lines = [line.rstrip() for line in f]
     labels = {}
     funcs = {}

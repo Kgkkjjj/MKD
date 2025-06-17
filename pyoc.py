@@ -19,7 +19,7 @@ def pyoc_import(name, globals=None, locals=None, fromlist=(), level=0):
             raise
         if name in _module_cache:
             return _module_cache[name]
-        with open(module_path, 'r') as f:
+        with open(module_path, 'r', encoding='utf-8') as f:
             code = f.read()
         module = types.ModuleType(name)
         module.__file__ = module_path
@@ -34,7 +34,7 @@ builtins.__import__ = pyoc_import
 
 def run_pyoc(path, args):
     """Run a .pyoc file as if it were a Python script."""
-    with open(path, 'r') as f:
+    with open(path, 'r', encoding='utf-8') as f:
         code = f.read()
     sys.argv = [path] + args
     globals_dict = {
