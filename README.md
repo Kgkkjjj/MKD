@@ -39,7 +39,8 @@ Python modules.
 - `itertools_utils` - extra iterators
 - `array_utils` - list chunking and unique helpers
 - `decimal_utils` - decimal arithmetic
-- `encoding_utils` - base64 and hex conversions
+- `encoding_utils` - base64, base32, base16, base85, ascii85, urlsafe base64,
+  UTF encodings, latin-1, ASCII, URL quoting and rot13 conversions
 - `html_utils` - HTML escaping helpers
 - `os_utils` - wrappers for os operations
 - `stats_utils` - basic statistics
