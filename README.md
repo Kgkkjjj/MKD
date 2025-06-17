@@ -3,6 +3,8 @@
 `mkd.pyoc` demonstrates the same tool using a minimal language called **pyoc**.
 It relies only on the Python standard library and is executed with the helper `pyoc.py` interpreter.
 The interpreter supports importing modules from the `lib` directory and caches them after first load.
+It also includes a `run_string` helper so `.pyoc` source can be executed directly from memory.
+Running `pyoc.py --list` prints all available command scripts.
 utilities such as filesystem access, path handling, string helpers, math, and
 more. These modules can be imported in `.pyoc` scripts just like regular
 Python modules.
