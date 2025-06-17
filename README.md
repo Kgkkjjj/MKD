@@ -112,3 +112,21 @@ Optional flags:
 
 The command creates the specified directory and any required parent
 directories if they do not already exist.
+
+## Systx language
+
+`systx.py` interprets files written in a tiny custom syntax. Each line begins
+with a command followed by arguments. Available commands are:
+
+- `set <var> <value>` – assign a number or string to a variable
+- `add <a> <b> <dest>` – add two numbers and store the result
+- `sub <a> <b> <dest>` – subtract two numbers and store the result
+- `print <values...>` – print one or more values or quoted strings
+
+Run a script with:
+
+```bash
+python systx.py demo.systx
+```
+
+The `demo.systx` script demonstrates basic variable assignment and arithmetic.
