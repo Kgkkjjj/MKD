@@ -1,6 +1,8 @@
 import sys
 import os
 import shlex
+import time
+import random
 
 
 def eval_token(token, env):
@@ -30,7 +32,7 @@ def compare(a, op, b):
     raise ValueError(f'Unknown operator: {op}')
 
 
-def run_line(tokens, env, labels, funcs, stack, pc_after):
+def run_line(tokens, env, labels, funcs, call_stack, data_stack, pc_after):
     """Execute a single command. Return new PC or None."""
     if not tokens:
         return None
@@ -57,6 +59,48 @@ def run_line(tokens, env, labels, funcs, stack, pc_after):
         a = eval_token(tokens[1], env)
         b = eval_token(tokens[2], env)
         env[tokens[3]] = a % b
+    elif cmd == 'inc' and len(tokens) == 2:
+        var = tokens[1]
+        env[var] = env.get(var, 0) + 1
+    elif cmd == 'dec' and len(tokens) == 2:
+        var = tokens[1]
+        env[var] = env.get(var, 0) - 1
+    elif cmd == 'and' and len(tokens) >= 4:
+        a = bool(eval_token(tokens[1], env))
+        b = bool(eval_token(tokens[2], env))
+        env[tokens[3]] = int(a and b)
+    elif cmd == 'or' and len(tokens) >= 4:
+        a = bool(eval_token(tokens[1], env))
+        b = bool(eval_token(tokens[2], env))
+        env[tokens[3]] = int(a or b)
+    elif cmd == 'not' and len(tokens) >= 3:
+        a = bool(eval_token(tokens[1], env))
+        env[tokens[2]] = int(not a)
+    elif cmd == 'concat' and len(tokens) >= 4:
+        a = str(eval_token(tokens[1], env))
+        b = str(eval_token(tokens[2], env))
+        env[tokens[3]] = a + b
+    elif cmd == 'len' and len(tokens) == 3:
+        a = str(eval_token(tokens[1], env))
+        env[tokens[2]] = len(a)
+    elif cmd == 'rand' and len(tokens) == 3:
+        max_val = int(eval_token(tokens[1], env))
+        env[tokens[2]] = random.randint(0, max_val - 1 if max_val > 0 else 0)
+    elif cmd == 'sleep' and len(tokens) == 2:
+        secs = float(eval_token(tokens[1], env))
+        time.sleep(secs)
+    elif cmd == 'copy' and len(tokens) == 3:
+        env[tokens[2]] = eval_token(tokens[1], env)
+    elif cmd == 'push' and len(tokens) == 2:
+        data_stack.append(eval_token(tokens[1], env))
+    elif cmd == 'pop' and len(tokens) == 2:
+        if not data_stack:
+            raise ValueError('Stack empty')
+        env[tokens[1]] = data_stack.pop()
+    elif cmd == 'swap' and len(tokens) == 3:
+        a = tokens[1]
+        b = tokens[2]
+        env[a], env[b] = env.get(b), env.get(a)
     elif cmd == 'read' and len(tokens) == 2:
         env[tokens[1]] = input()
     elif cmd == 'print' and len(tokens) >= 2:
@@ -80,12 +124,12 @@ def run_line(tokens, env, labels, funcs, stack, pc_after):
         name = tokens[1]
         if name not in funcs:
             raise ValueError(f'Unknown function: {name}')
-        stack.append(pc_after)
+        call_stack.append(pc_after)
         return funcs[name]
     elif cmd == 'return':
-        if not stack:
+        if not call_stack:
             return None
-        return stack.pop()
+        return call_stack.pop()
     elif cmd == 'exit':
         return float('inf')
     else:
@@ -119,14 +163,15 @@ def run_systx(path, args):
             continue
         lines.append(shlex.split(line))
 
-    stack = []
+    call_stack = []
+    data_stack = []
     pc = 0
     while pc < len(lines):
         tokens = lines[pc]
         pc += 1
         if tokens is None:
             continue
-        new_pc = run_line(tokens, env, labels, funcs, stack, pc)
+        new_pc = run_line(tokens, env, labels, funcs, call_stack, data_stack, pc)
         if new_pc is not None:
             if new_pc == float('inf'):
                 break

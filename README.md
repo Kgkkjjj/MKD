@@ -128,6 +128,19 @@ with a command followed by arguments. Available commands are:
 - `mod <a> <b> <dest>` – remainder after dividing
 - `read <var>` – read a line from standard input into a variable
 - `print <values...>` – print one or more values or quoted strings
+- `inc <var>` – increment a variable by 1
+- `dec <var>` – decrement a variable by 1
+- `and <a> <b> <dest>` – boolean AND storing 1 or 0
+- `or <a> <b> <dest>` – boolean OR storing 1 or 0
+- `not <a> <dest>` – boolean NOT storing 1 or 0
+- `concat <a> <b> <dest>` – concatenate two strings
+- `len <value> <dest>` – store the length of a string
+- `rand <max> <dest>` – random integer from 0 to `max-1`
+- `sleep <seconds>` – pause execution for the given time
+- `copy <src> <dest>` – copy a value to another variable
+- `push <value>` – push a value onto a stack
+- `pop <dest>` – pop a value from the stack into a variable
+- `swap <a> <b>` – exchange values of two variables
 - `:label` – mark a jump target
 - `goto <label>` – jump to a label
 - `if <a> <op> <b> goto <label>` – conditional jump using `==`, `!=`, `<`, `>`, `<=`, `>=`
@@ -143,3 +156,4 @@ python systx.py demo.systx
 ```
 
 The `demo.systx` script demonstrates looping with labels and conditional jumps.
+It also shows the `rand` and `dec` commands.

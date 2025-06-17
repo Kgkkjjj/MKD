@@ -1,4 +1,6 @@
-# Demo script demonstrating functions and loops
+# Demo script demonstrating functions and loops with extra commands
+rand 10 r
+print "Random number:" r
 set n 5
 call factorial
 print "Factorial:" result
@@ -8,7 +10,7 @@ func factorial
 set result 1
 :loop
 mul result n result
-sub n 1 n
+dec n
 if n > 1 goto loop
 return
 end
